@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyTicketMaster.ServiceDefau
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyTicketMaster.Api", "MyTicketMaster.Api\MyTicketMaster.Api.csproj", "{77145513-F7F2-471B-9412-3ADF1FCA773A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyTicketMaster.Application", "MyTicketMaster.Application\MyTicketMaster.Application.csproj", "{578D4D5A-2B60-4C50-84AA-D1507FB99C98}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,6 +28,10 @@ Global
 		{77145513-F7F2-471B-9412-3ADF1FCA773A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{77145513-F7F2-471B-9412-3ADF1FCA773A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{77145513-F7F2-471B-9412-3ADF1FCA773A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{578D4D5A-2B60-4C50-84AA-D1507FB99C98}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{578D4D5A-2B60-4C50-84AA-D1507FB99C98}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{578D4D5A-2B60-4C50-84AA-D1507FB99C98}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{578D4D5A-2B60-4C50-84AA-D1507FB99C98}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

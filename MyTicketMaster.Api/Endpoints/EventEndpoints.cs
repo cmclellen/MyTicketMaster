@@ -1,4 +1,6 @@
 ﻿using Carter;
+using Microsoft.AspNetCore.Http.HttpResults;
+using MyTicketMaster.Application.Dtos;
 
 namespace MyTicketMaster.Api.Endpoints
 {
@@ -8,10 +10,10 @@ namespace MyTicketMaster.Api.Endpoints
         {
             var eventsMapGroup = app.MapGroup("/events");
             
-            eventsMapGroup.MapGet("/", () => "Hello World!")
+            eventsMapGroup.MapGet("/", GetEvents)
                 .WithName("GetEvents")
                 .MapToApiVersion(1)
-                .Produces(StatusCodes.Status500InternalServerError)
+                //.Produces(StatusCodes.Status500InternalServerError)
                 .WithTags("Get123")
                 .WithOpenApi(op =>
                 {
@@ -19,6 +21,13 @@ namespace MyTicketMaster.Api.Endpoints
 
                     return op;
                 }); ;
+        }
+
+        public static async Task<Results<Ok<EventDto>, InternalServerError<string>>> GetEvents()
+        {
+            await Task.CompletedTask;
+            var ev = new EventDto("Coldplay");
+            return TypedResults.Ok(ev);
         }
     }
 }
