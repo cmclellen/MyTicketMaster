@@ -2,6 +2,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using MyTicketMaster.Application.Commands;
 using MyTicketMaster.Application.Queries;
 using MyTicketMaster.Common.Events;
 using MyTicketMaster.Contracts.Common;
@@ -28,6 +29,12 @@ namespace MyTicketMaster.Api.Endpoints
                 .WithName(nameof(GetEventSeats))
                 .MapToApiVersion(1)
                 .WithTags(nameof(GetEventSeats));
+
+            // TODO
+            //app.MapPost("/{eventId:guid}/seats/hold", HoldEventSeats)
+            //    .WithName(nameof(HoldEventSeats))
+            //    .MapToApiVersion(1)
+            //    .WithTags(nameof(HoldEventSeats));
         }
 
         /// <summary>
@@ -69,6 +76,27 @@ namespace MyTicketMaster.Api.Endpoints
             var response = await sender.Send(new GetEventSeatsQuery());
             return TypedResults.Ok(response);
         }
-        
+
+        ///// <summary>
+        ///// Holds event seats.
+        ///// </summary>
+        ///// <param name="eventId">The ID of the event to retrieve seats for</param>
+        ///// <returns>A list of event seats</returns>
+        ///// <remarks>
+        ///// Sample request:
+        /////
+        /////     POST /events/{eventId}/seats/hold
+        /////
+        ///// </remarks>
+        ///// <response code="200">Returns the list of events</response>
+        ///// <response code="500">An unexpected error has occurred</response>
+        //[Consumes("application/json")]
+        //[Produces("application/json")]
+        //public async Task<Results<Ok, InternalServerError<string>>> HoldEventSeats(HoldEventSeatsRequest request)
+        //{
+        //    var cmd = new HoldEventSeatsCommand(request.SeatIds);
+        //    await sender.Send(cmd);
+        //    return TypedResults.Ok();
+        //}
     }
 }
