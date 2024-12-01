@@ -4,6 +4,8 @@ using Microsoft.OpenApi.Models;
 using MyTicketMaster.Api.Middlewares;
 using MyTicketMaster.Application.Queries;
 using System.Reflection;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +13,10 @@ builder.AddServiceDefaults();
 
 var services = builder.Services;
 services
+    .ConfigureHttpJsonOptions(options => {
+        options.SerializerOptions.Converters.Add(new JsonStringEnumConverter());
+        options.SerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+    })
     .AddTransient<GlobalExceptionHandlingMiddleware>()
     .AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<GetEventsQuery>())
     .AddCarter()

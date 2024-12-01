@@ -31,7 +31,7 @@ namespace MyTicketMaster.Api.Endpoints
         /// <remarks>
         /// Sample request:
         ///
-        ///     GET /Venues
+        ///     GET /venues
         ///
         /// </remarks>
         /// <response code="200">Returns the list of venues</response>
