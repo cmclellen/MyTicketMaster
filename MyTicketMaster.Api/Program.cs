@@ -1,6 +1,8 @@
 using Asp.Versioning;
 using Carter;
+using Microsoft.OpenApi.Models;
 using MyTicketMaster.Api.Middlewares;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,12 +10,33 @@ builder.AddServiceDefaults();
 
 var services = builder.Services;
 services
+    .AddTransient<GlobalExceptionHandlingMiddleware>()
     .AddCarter()
     .AddEndpointsApiExplorer()
-    .AddTransient<GlobalExceptionHandlingMiddleware>()
     .AddSwaggerGen(c =>
     {
-        c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "My API", Version = "v1" });
+        c.SwaggerDoc("v1", 
+            new Microsoft.OpenApi.Models.OpenApiInfo { 
+                Title = "My Ticket Master API", 
+                Version = "v1",
+                Description = "A ticket master type API",
+                TermsOfService = new Uri("https://example.com/terms"),
+                Contact = new OpenApiContact
+                {
+                    Name = "Ticketing",
+                    Email = "contact@example.com",
+                    Url = new Uri("https://example.com"),
+                },
+                License = new OpenApiLicense
+                {
+                    Name = "My ticket master LICX",
+                    Url = new Uri("https://example.com/license")
+                }
+            });
+
+        var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+        var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFilename);
+        c.IncludeXmlComments(xmlPath);
     })
     .AddApiVersioning(options => {
         options.DefaultApiVersion = new ApiVersion(1);
@@ -30,8 +53,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI(c =>
     {
-        c.SwaggerEndpoint("v1/swagger.json", "My API V1");
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "My Ticket Master V1");
+        c.RoutePrefix = string.Empty;
     });
+    app.UseDeveloperExceptionPage();
 }
 
 app.MapDefaultEndpoints();
