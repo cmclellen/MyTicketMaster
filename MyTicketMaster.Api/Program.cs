@@ -1,5 +1,6 @@
 using Asp.Versioning;
 using Carter;
+using MyTicketMaster.Api.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +10,7 @@ var services = builder.Services;
 services
     .AddCarter()
     .AddEndpointsApiExplorer()
+    .AddTransient<GlobalExceptionHandlingMiddleware>()
     .AddSwaggerGen(c =>
     {
         c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "My API", Version = "v1" });
@@ -33,6 +35,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.MapDefaultEndpoints();
+
+app.UseMiddleware<GlobalExceptionHandlingMiddleware>();
 
 var apiVersionSet = app.NewApiVersionSet()
     .HasApiVersion(new ApiVersion(1))
