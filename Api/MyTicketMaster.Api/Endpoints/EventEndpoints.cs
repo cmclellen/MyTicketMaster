@@ -24,16 +24,10 @@ namespace MyTicketMaster.Api.Endpoints
             //    return op;
             //});
 
-            app.MapGet("/seats", GetEventSeats)
+            app.MapGet("/{eventId:guid}/seats", GetEventSeats)
                 .WithName(nameof(GetEventSeats))
                 .MapToApiVersion(1)
-                //.Produces(StatusCodes.Status500InternalServerError)
                 .WithTags(nameof(GetEventSeats));
-            //.WithOpenApi(op =>
-            //{
-            //    op.RequestBody.Required = false;
-            //    return op;
-            //});
         }
 
         /// <summary>
