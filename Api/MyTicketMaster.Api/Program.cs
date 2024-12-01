@@ -2,6 +2,7 @@ using Asp.Versioning;
 using Carter;
 using Microsoft.OpenApi.Models;
 using MyTicketMaster.Api.Middlewares;
+using MyTicketMaster.Application.Queries;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +12,7 @@ builder.AddServiceDefaults();
 var services = builder.Services;
 services
     .AddTransient<GlobalExceptionHandlingMiddleware>()
+    .AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<GetEventsQuery>())
     .AddCarter()
     .AddEndpointsApiExplorer()
     .AddSwaggerGen(c =>

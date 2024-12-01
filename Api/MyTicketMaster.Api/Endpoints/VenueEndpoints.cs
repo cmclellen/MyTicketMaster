@@ -3,20 +3,20 @@ using MediatR;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using MyTicketMaster.Application.Queries;
-using MyTicketMaster.Common.Events;
+using MyTicketMaster.Common.Venues;
 using MyTicketMaster.Contracts.Common;
 
 namespace MyTicketMaster.Api.Endpoints
 {
-    public class EventEndpoints(ISender sender) : CarterModule("/events")
+    public class VenueEndpoints(ISender sender) : CarterModule("/venue")
     {
         public override void AddRoutes(IEndpointRouteBuilder app)
         {
-            app.MapGet("/", GetEvents)
-                .WithName(nameof(GetEvents))
+            app.MapGet("/", GetVenues)
+                .WithName(nameof(GetVenues))
                 .MapToApiVersion(1)
                 //.Produces(StatusCodes.Status500InternalServerError)
-                .WithTags(nameof(GetEvents));
+                .WithTags(nameof(GetVenues));
             //.WithOpenApi(op =>
             //{
             //    op.RequestBody.Required = false;
@@ -25,22 +25,21 @@ namespace MyTicketMaster.Api.Endpoints
         }
 
         /// <summary>
-        /// Gets all events.
+        /// Gets all venues.
         /// </summary>
-        /// <returns>A list of events</returns>
+        /// <returns>A list of venues</returns>
         /// <remarks>
         /// Sample request:
         ///
-        ///     GET /Events
+        ///     GET /Venues
         ///
         /// </remarks>
-        /// <response code="200">Returns the list of events</response>
+        /// <response code="200">Returns the list of venues</response>
         /// <response code="500">An unexpected error has occurred</response>
-        /// [ApiConventionMethod(typeof(DefaultApiConventions))]
         [Produces("application/json")]        
-        public async Task<Results<Ok<PagedResponse<EventResponse>>, InternalServerError<string>>> GetEvents()
+        public async Task<Results<Ok<PagedResponse<VenueResponse>>, InternalServerError<string>>> GetVenues()
         {
-            var response = await sender.Send(new GetEventsQuery());
+            var response = await sender.Send(new GetVenuesQuery());
             return TypedResults.Ok(response);
         }
     }
