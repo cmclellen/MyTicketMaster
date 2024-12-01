@@ -6,11 +6,14 @@ namespace MyTicketMaster.Api.Endpoints
 {
     public class EventEndpoints : CarterModule
     {
+        public EventEndpoints() : base("/events")
+        {
+            
+        }
+
         public override void AddRoutes(IEndpointRouteBuilder app)
         {
-            var eventsMapGroup = app.MapGroup("/events");
-            
-            eventsMapGroup.MapGet("/", GetEvents)
+            app.MapGet("/", GetEvents)
                 .WithName("GetEvents")
                 .MapToApiVersion(1)
                 //.Produces(StatusCodes.Status500InternalServerError)

@@ -16,6 +16,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MyTicketMaster.Application\MyTicketMaster.Application.csproj" />
+    <ProjectReference Include="..\MyTicketMaster.Infrastructure\MyTicketMaster.Infrastructure.csproj" />
+    <ProjectReference Include="..\MyTicketMaster.Persistence\MyTicketMaster.Persistence.csproj" />
     <ProjectReference Include="..\MyTicketMaster.ServiceDefaults\MyTicketMaster.ServiceDefaults.csproj" />
   </ItemGroup>
 

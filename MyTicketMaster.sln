@@ -10,6 +10,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyTicketMaster.Api", "MyTic
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyTicketMaster.Application", "MyTicketMaster.Application\MyTicketMaster.Application.csproj", "{578D4D5A-2B60-4C50-84AA-D1507FB99C98}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyTicketMaster.Domain", "MyTicketMaster.Domain\MyTicketMaster.Domain.csproj", "{6DC2B689-9090-4CEA-ADB3-A76E4EF2A80C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyTicketMaster.Infrastructure", "MyTicketMaster.Infrastructure\MyTicketMaster.Infrastructure.csproj", "{5ACFAC5E-F0D0-48EB-8E08-23C7B578422B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyTicketMaster.Persistence", "MyTicketMaster.Persistence\MyTicketMaster.Persistence.csproj", "{C2DA7AD8-56F2-483E-981E-6DECCBA1FE5A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,6 +38,18 @@ Global
 		{578D4D5A-2B60-4C50-84AA-D1507FB99C98}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{578D4D5A-2B60-4C50-84AA-D1507FB99C98}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{578D4D5A-2B60-4C50-84AA-D1507FB99C98}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6DC2B689-9090-4CEA-ADB3-A76E4EF2A80C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DC2B689-9090-4CEA-ADB3-A76E4EF2A80C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6DC2B689-9090-4CEA-ADB3-A76E4EF2A80C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6DC2B689-9090-4CEA-ADB3-A76E4EF2A80C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5ACFAC5E-F0D0-48EB-8E08-23C7B578422B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5ACFAC5E-F0D0-48EB-8E08-23C7B578422B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5ACFAC5E-F0D0-48EB-8E08-23C7B578422B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5ACFAC5E-F0D0-48EB-8E08-23C7B578422B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2DA7AD8-56F2-483E-981E-6DECCBA1FE5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2DA7AD8-56F2-483E-981E-6DECCBA1FE5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2DA7AD8-56F2-483E-981E-6DECCBA1FE5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2DA7AD8-56F2-483E-981E-6DECCBA1FE5A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
