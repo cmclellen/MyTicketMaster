@@ -15,10 +15,10 @@ namespace MyTicketMaster.Api.Endpoints
         public override void AddRoutes(IEndpointRouteBuilder app)
         {
             app.MapGet("/", GetEvents)
-                .WithName("Get111")
+                .WithName(nameof(GetEvents))
                 .MapToApiVersion(1)
                 //.Produces(StatusCodes.Status500InternalServerError)
-                .WithTags("GetEvents");
+                .WithTags(nameof(GetEvents));
                 //.WithOpenApi(op =>
                 //{
                 //    op.RequestBody.Required = false;
