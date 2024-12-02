@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\MyTicketMaster.Booking.Api\MyTicketMaster.Booking.Api.csproj" />
     <ProjectReference Include="..\MyTicketMaster.Event.Api\MyTicketMaster.Event.Api.csproj" />
   </ItemGroup>
 

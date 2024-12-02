@@ -1,17 +1,17 @@
 ﻿namespace MyTicketMaster.Event.Contracts.Types
 {
-    public class SeatId
+    public struct SeatId
     {
-        private readonly int _value;
-
         public SeatId(int value)
         {
-            _value = value;
+            Value = value;
         }
+
+        public int Value { get; }
 
         public static implicit operator int(SeatId seatId)
         {
-            return seatId._value;
+            return seatId.Value;
         }
 
         public static implicit operator SeatId(int val)

@@ -2,9 +2,9 @@
 using MediatR;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using MyTicketMaster.Core.Requests;
 using MyTicketMaster.Event.Application.Commands;
 using MyTicketMaster.Event.Application.Queries;
-using MyTicketMaster.Event.Contracts.Common;
 using MyTicketMaster.Event.Contracts.Events;
 
 namespace MyTicketMaster.Event.Api.Endpoints
@@ -29,11 +29,10 @@ namespace MyTicketMaster.Event.Api.Endpoints
                 .MapToApiVersion(1)
                 .WithTags(nameof(GetEventSeats));
 
-            // TODO
-            //app.MapPost("/{eventId:guid}/seats/hold", HoldEventSeats)
-            //    .WithName(nameof(HoldEventSeats))
-            //    .MapToApiVersion(1)
-            //    .WithTags(nameof(HoldEventSeats));
+            app.MapPost("/{eventId:guid}/seats/hold", HoldEventSeats)
+                .WithName(nameof(HoldEventSeats))
+                .MapToApiVersion(1)
+                .WithTags(nameof(HoldEventSeats));
         }
 
         /// <summary>
@@ -76,26 +75,24 @@ namespace MyTicketMaster.Event.Api.Endpoints
             return TypedResults.Ok(response);
         }
 
-        ///// <summary>
-        ///// Holds event seats.
-        ///// </summary>
-        ///// <param name="eventId">The ID of the event to retrieve seats for</param>
-        ///// <returns>A list of event seats</returns>
-        ///// <remarks>
-        ///// Sample request:
-        /////
-        /////     POST /events/{eventId}/seats/hold
-        /////
-        ///// </remarks>
-        ///// <response code="200">Returns the list of events</response>
-        ///// <response code="500">An unexpected error has occurred</response>
-        //[Consumes("application/json")]
-        //[Produces("application/json")]
-        //public async Task<Results<Ok, InternalServerError<string>>> HoldEventSeats(HoldEventSeatsRequest request)
-        //{
-        //    var cmd = new HoldEventSeatsCommand(request.SeatIds);
-        //    await sender.Send(cmd);
-        //    return TypedResults.Ok();
-        //}
+        /// <summary>
+        /// Puts a holds on event seats.
+        /// </summary>
+        /// <param name="request">The hold event seats request</param>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     POST /events/{eventId}/seats/hold
+        ///
+        /// </remarks>
+        /// <response code="500">An unexpected error has occurred</response>
+        [Consumes("application/json")]
+        [Produces("application/json")]
+        public async Task<Results<Ok, InternalServerError<string>>> HoldEventSeats(HoldEventSeatsRequest request)
+        {
+            var cmd = new HoldEventSeatsCommand(request.eventId, request.SeatIds);
+            await sender.Send(cmd);
+            return TypedResults.Ok();
+        }
     }
 }

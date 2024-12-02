@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using MyTicketMaster.Event.Contracts.Common;
+using MyTicketMaster.Core.Requests;
 using MyTicketMaster.Event.Contracts.Events;
 
 namespace MyTicketMaster.Event.Application.Queries

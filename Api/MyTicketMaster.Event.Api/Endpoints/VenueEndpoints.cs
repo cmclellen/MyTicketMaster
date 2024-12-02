@@ -2,8 +2,8 @@
 using MediatR;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using MyTicketMaster.Core.Requests;
 using MyTicketMaster.Event.Application.Queries;
-using MyTicketMaster.Event.Contracts.Common;
 using MyTicketMaster.Event.Contracts.Venues;
 
 namespace MyTicketMaster.Event.Api.Endpoints

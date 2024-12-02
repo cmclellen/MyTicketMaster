@@ -1,9 +1,11 @@
 ﻿
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System.Net;
 using System.Text.Json;
 
-namespace MyTicketMaster.Event.Api.Middlewares
+namespace MyTicketMaster.Core.Api.Middlewares
 {
     public class GlobalExceptionHandlingMiddleware(ILogger<GlobalExceptionHandlingMiddleware> logger) : IMiddleware
     {

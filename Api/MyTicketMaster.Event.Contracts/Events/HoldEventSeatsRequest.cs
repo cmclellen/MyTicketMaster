@@ -2,5 +2,5 @@
 
 namespace MyTicketMaster.Event.Contracts.Events
 {
-    public record HoldEventSeatsRequest(IList<SeatId> SeatIds);
+    public record HoldEventSeatsRequest(EventId eventId, IList<SeatId> SeatIds);
 }

@@ -1,5 +1,5 @@
+using MyTicketMaster.Booking.Application.Queries;
 using MyTicketMaster.Core.Api.Extensions;
-using MyTicketMaster.Event.Application.Queries;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,16 +9,16 @@ var services = builder.Services;
 services
     .ConfigureJsonOptionsEx()
     .AddGlobalExceptionHandler()
-    .AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<GetEventsQuery>())
+    .AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<GetBookingsQuery>())
     .AddEndpointsApiExplorer()
-    .AddSwaggerEx("Event")
+    .AddSwaggerEx("Booking")
     .AddApiVersioningEx();
 
 var app = builder.Build();
 
 app.UseSwaggerEx();
 if (app.Environment.IsDevelopment())
-{   
+{
     app.UseDeveloperExceptionPage();
 }
 

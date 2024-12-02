@@ -8,13 +8,11 @@
 
   <ItemGroup>
     <PackageReference Include="MediatR" Version="12.4.1" />
-    <PackageReference Include="MediatR.Contracts" Version="2.0.1" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\MyTicketMaster.Booking.Contracts\MyTicketMaster.Booking.Contracts.csproj" />
     <ProjectReference Include="..\MyTicketMaster.Core\MyTicketMaster.Core.csproj" />
-    <ProjectReference Include="..\MyTicketMaster.Event.Contracts\MyTicketMaster.Event.Contracts.csproj" />
-    <ProjectReference Include="..\MyTicketMaster.Event.Domain\MyTicketMaster.Event.Domain.csproj" />
   </ItemGroup>
 
 </Project>

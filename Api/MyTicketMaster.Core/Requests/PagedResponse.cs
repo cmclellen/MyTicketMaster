@@ -1,4 +1,4 @@
-﻿namespace MyTicketMaster.Event.Contracts.Common
+﻿namespace MyTicketMaster.Core.Requests
 {
     public record PagedResponse<T>(IEnumerable<T> Items);
 }
