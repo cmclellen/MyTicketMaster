@@ -66,21 +66,21 @@ namespace MyTicketMaster.Booking.Api.Endpoints
         }
 
         /// <summary>
-        /// Creates a booking.
+        /// Finalises a booking.
         /// </summary>
-        /// <param name="request">The finalise booking request</param>
+        /// <param name="bookingId">The ID of the booking to finalise</param>
         /// <remarks>
         /// Sample request:
         ///
-        ///     POST /bookings
+        ///     PUT /bookings/{bookingId:guid}/finalise
         ///
         /// </remarks>
         /// <response code="204"></response>
         /// <response code="500">An unexpected error has occurred</response>
         [Produces("application/json")]
-        public async Task<Results<NoContent, InternalServerError<string>>> FinaliseBooking(FinaliseBookingRequest request)
+        public async Task<Results<NoContent, InternalServerError<string>>> FinaliseBooking(Guid bookingId)
         {
-            await sender.Send(new FinaliseBookingCommand());
+            await sender.Send(new FinaliseBookingCommand(bookingId));
             return TypedResults.NoContent();
         }
     }

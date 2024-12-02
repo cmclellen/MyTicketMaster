@@ -2,5 +2,5 @@
 
 namespace MyTicketMaster.Booking.Application.Commands
 {
-    public record FinaliseBookingCommand : IRequest;
+    public record FinaliseBookingCommand(Guid bookingId) : IRequest;
 }
