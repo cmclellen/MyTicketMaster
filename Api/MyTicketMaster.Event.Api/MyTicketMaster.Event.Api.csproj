@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <NoWarn>1701;1702;1591</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <NoWarn>1701;1702;1591</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Asp.Versioning.Http" Version="8.1.0" />
+    <PackageReference Include="Asp.Versioning.Mvc.ApiExplorer" Version="8.1.0" />
+    <PackageReference Include="Carter" Version="9.0.0" />
+    <PackageReference Include="MediatR" Version="12.4.1" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="7.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MyTicketMaster.Event.Application\MyTicketMaster.Event.Application.csproj" />
+    <ProjectReference Include="..\MyTicketMaster.Event.Contracts\MyTicketMaster.Event.Contracts.csproj" />
+    <ProjectReference Include="..\MyTicketMaster.Event.Infrastructure\MyTicketMaster.Event.Infrastructure.csproj" />
+    <ProjectReference Include="..\MyTicketMaster.Event.Persistence\MyTicketMaster.Event.Persistence.csproj" />
+    <ProjectReference Include="..\MyTicketMaster.ServiceDefaults\MyTicketMaster.ServiceDefaults.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -6,17 +6,19 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyTicketMaster.AppHost", "M
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyTicketMaster.ServiceDefaults", "MyTicketMaster.ServiceDefaults\MyTicketMaster.ServiceDefaults.csproj", "{3BD49404-F1AA-4458-B88A-608F6662E288}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyTicketMaster.Api", "MyTicketMaster.Api\MyTicketMaster.Api.csproj", "{77145513-F7F2-471B-9412-3ADF1FCA773A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyTicketMaster.Event.Api", "MyTicketMaster.Event.Api\MyTicketMaster.Event.Api.csproj", "{77145513-F7F2-471B-9412-3ADF1FCA773A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyTicketMaster.Application", "MyTicketMaster.Application\MyTicketMaster.Application.csproj", "{578D4D5A-2B60-4C50-84AA-D1507FB99C98}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyTicketMaster.Event.Application", "MyTicketMaster.Event.Application\MyTicketMaster.Event.Application.csproj", "{578D4D5A-2B60-4C50-84AA-D1507FB99C98}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyTicketMaster.Domain", "MyTicketMaster.Domain\MyTicketMaster.Domain.csproj", "{6DC2B689-9090-4CEA-ADB3-A76E4EF2A80C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyTicketMaster.Event.Domain", "MyTicketMaster.Event.Domain\MyTicketMaster.Event.Domain.csproj", "{6DC2B689-9090-4CEA-ADB3-A76E4EF2A80C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyTicketMaster.Infrastructure", "MyTicketMaster.Infrastructure\MyTicketMaster.Infrastructure.csproj", "{5ACFAC5E-F0D0-48EB-8E08-23C7B578422B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyTicketMaster.Event.Infrastructure", "MyTicketMaster.Event.Infrastructure\MyTicketMaster.Event.Infrastructure.csproj", "{5ACFAC5E-F0D0-48EB-8E08-23C7B578422B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyTicketMaster.Persistence", "MyTicketMaster.Persistence\MyTicketMaster.Persistence.csproj", "{C2DA7AD8-56F2-483E-981E-6DECCBA1FE5A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyTicketMaster.Event.Persistence", "MyTicketMaster.Event.Persistence\MyTicketMaster.Event.Persistence.csproj", "{C2DA7AD8-56F2-483E-981E-6DECCBA1FE5A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyTicketMaster.Contracts", "MyTicketMaster.Contracts\MyTicketMaster.Contracts.csproj", "{2DA9D86B-103A-44C1-A105-2D80AC71C97D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyTicketMaster.Event.Contracts", "MyTicketMaster.Event.Contracts\MyTicketMaster.Event.Contracts.csproj", "{2DA9D86B-103A-44C1-A105-2D80AC71C97D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Event", "Event", "{10688E99-C685-438F-B34E-B2DB7B4C1B9C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,5 +61,13 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{77145513-F7F2-471B-9412-3ADF1FCA773A} = {10688E99-C685-438F-B34E-B2DB7B4C1B9C}
+		{578D4D5A-2B60-4C50-84AA-D1507FB99C98} = {10688E99-C685-438F-B34E-B2DB7B4C1B9C}
+		{6DC2B689-9090-4CEA-ADB3-A76E4EF2A80C} = {10688E99-C685-438F-B34E-B2DB7B4C1B9C}
+		{5ACFAC5E-F0D0-48EB-8E08-23C7B578422B} = {10688E99-C685-438F-B34E-B2DB7B4C1B9C}
+		{C2DA7AD8-56F2-483E-981E-6DECCBA1FE5A} = {10688E99-C685-438F-B34E-B2DB7B4C1B9C}
+		{2DA9D86B-103A-44C1-A105-2D80AC71C97D} = {10688E99-C685-438F-B34E-B2DB7B4C1B9C}
 	EndGlobalSection
 EndGlobal
