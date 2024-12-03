@@ -1,11 +1,11 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.OpenApi.Models;
-using System.Reflection;
-using Asp.Versioning;
+﻿using Asp.Versioning;
 using Carter;
-using System.Text.Json.Serialization;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.OpenApi.Models;
+using MyTicketMaster.Core.Api.Exceptions;
+using System.Reflection;
 using System.Text.Json;
-using MyTicketMaster.Core.Api.Middlewares;
+using System.Text.Json.Serialization;
 
 namespace MyTicketMaster.Core.Api.Extensions
 {
@@ -69,7 +69,9 @@ namespace MyTicketMaster.Core.Api.Extensions
 
         public static IServiceCollection AddGlobalExceptionHandler(this IServiceCollection services)
         {
-            services.AddTransient<GlobalExceptionHandlingMiddleware>();
+            //services.AddTransient<GlobalExceptionHandlingMiddleware>();
+            services.AddProblemDetails();
+            services.AddExceptionHandler<GlobalExceptionHandler>();
             return services;
         }
     }

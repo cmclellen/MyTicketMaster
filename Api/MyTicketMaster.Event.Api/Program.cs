@@ -14,6 +14,8 @@ services
     .AddSwaggerEx("Event")
     .AddApiVersioningEx();
 
+builder.AddOpenTelemetry("EventService");
+
 var app = builder.Build();
 
 app.UseSwaggerEx();

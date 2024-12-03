@@ -2,7 +2,6 @@
 using Carter;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Hosting;
-using MyTicketMaster.Core.Api.Middlewares;
 
 namespace MyTicketMaster.Core.Api.Extensions
 {
@@ -35,7 +34,8 @@ namespace MyTicketMaster.Core.Api.Extensions
 
         public static WebApplication UseGlobalExceptionHandler(this WebApplication app)
         {
-            app.UseMiddleware<GlobalExceptionHandlingMiddleware>();
+            //app.UseMiddleware<GlobalExceptionHandlingMiddleware>();
+            app.UseExceptionHandler();
             return app;
         }
     }
