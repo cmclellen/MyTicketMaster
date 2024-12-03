@@ -36,6 +36,7 @@ namespace MyTicketMaster.Core.Api.Extensions
         {
             //app.UseMiddleware<GlobalExceptionHandlingMiddleware>();
             app.UseExceptionHandler();
+            app.UseStatusCodePages();
             return app;
         }
     }

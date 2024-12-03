@@ -17,8 +17,6 @@ namespace MyTicketMaster.Core.Api.Exceptions
                 _ => (int)HttpStatusCode.InternalServerError
             };
 
-            Activity? activity = httpContext.Features.Get<IHttpActivityFeature>()?.Activity;
-
             return await problemDetailsService.TryWriteAsync(
                 new ProblemDetailsContext { 
                     HttpContext = httpContext,
@@ -28,12 +26,6 @@ namespace MyTicketMaster.Core.Api.Exceptions
                         Type = exception.GetType().Name,
                         Title = "An error occured",
                         Detail = exception.Message,
-                        Instance = $"{httpContext.Request.Method} {httpContext.Request.Path}",
-                        Extensions = new Dictionary<string, object?>
-                        {
-                            { "requestId", httpContext.TraceIdentifier },
-                            { "traceId", activity?.Id }
-                        }
                     }
                 });
 

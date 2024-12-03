@@ -1,8 +1,11 @@
 ﻿using Asp.Versioning;
 using Carter;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using MyTicketMaster.Core.Api.Exceptions;
+using System.Diagnostics;
 using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -70,7 +73,16 @@ namespace MyTicketMaster.Core.Api.Extensions
         public static IServiceCollection AddGlobalExceptionHandler(this IServiceCollection services)
         {
             //services.AddTransient<GlobalExceptionHandlingMiddleware>();
-            services.AddProblemDetails();
+            services.AddProblemDetails(o => {
+                o.CustomizeProblemDetails = context =>
+                {
+                    var httpContext = context.HttpContext;
+                    Activity? activity = httpContext.Features.Get<IHttpActivityFeature>()?.Activity;
+                    context.ProblemDetails.Instance = $"{httpContext.Request.Method} {httpContext.Request.Path}";
+                    context.ProblemDetails.Extensions.Add("requestId", httpContext.TraceIdentifier);
+                    context.ProblemDetails.Extensions.Add("traceId", activity?.Id);
+                };
+            });
             services.AddExceptionHandler<GlobalExceptionHandler>();
             return services;
         }
