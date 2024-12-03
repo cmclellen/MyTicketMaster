@@ -1,4 +1,4 @@
 ﻿namespace MyTicketMaster.Event.Contracts.Events
 {
-    public record EventSeatResponse(int SeatId, SeatAvailabilityStatusType SeatAvailabilityStatus);
+    public record EventSeatResponse(Guid SeatId, SeatAvailabilityStatusType SeatAvailabilityStatus);
 }

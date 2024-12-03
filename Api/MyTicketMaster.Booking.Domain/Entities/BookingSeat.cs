@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MyTicketMaster.Booking.Domain.Entities
+﻿namespace MyTicketMaster.Booking.Domain.Entities
 {
-    internal class BookingSeat
+    public class BookingSeat
     {
+        public Guid SeatId { get; set; }
+        public Guid EventId { get; set; }
+        public Guid BookingId { get; set; }
     }
 }

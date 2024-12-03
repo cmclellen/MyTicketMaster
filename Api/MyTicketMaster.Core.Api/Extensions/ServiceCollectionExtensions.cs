@@ -80,7 +80,7 @@ namespace MyTicketMaster.Core.Api.Extensions
                     Activity? activity = httpContext.Features.Get<IHttpActivityFeature>()?.Activity;
                     context.ProblemDetails.Instance = $"{httpContext.Request.Method} {httpContext.Request.Path}";
                     context.ProblemDetails.Extensions.Add("requestId", httpContext.TraceIdentifier);
-                    context.ProblemDetails.Extensions.Add("traceId", activity?.Id);
+                    //context.ProblemDetails.Extensions.Add("traceId", activity?.Id);
                 };
             });
             services.AddExceptionHandler<GlobalExceptionHandler>();

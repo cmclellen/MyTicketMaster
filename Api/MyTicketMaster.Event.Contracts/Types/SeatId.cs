@@ -2,19 +2,19 @@
 {
     public struct SeatId
     {
-        public SeatId(int value)
+        public SeatId(Guid value)
         {
             Value = value;
         }
 
-        public int Value { get; }
+        public Guid Value { get; }
 
-        public static implicit operator int(SeatId seatId)
+        public static implicit operator Guid(SeatId seatId)
         {
             return seatId.Value;
         }
 
-        public static implicit operator SeatId(int val)
+        public static implicit operator SeatId(Guid val)
         {
             return new SeatId(val);
         }

@@ -11,7 +11,7 @@ namespace MyTicketMaster.Event.Application.Queries
         public async Task<PagedResponse<EventSeatResponse>> Handle(GetEventSeatsQuery request, CancellationToken cancellationToken)
         {
             await Task.CompletedTask;
-            var eventSeatResponse = new EventSeatResponse(1, SeatAvailabilityStatusType.Available);
+            var eventSeatResponse = new EventSeatResponse(Guid.NewGuid(), SeatAvailabilityStatusType.Available);
             return new PagedResponse<EventSeatResponse>([eventSeatResponse]);
         }
     }
