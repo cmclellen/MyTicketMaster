@@ -1,5 +1,8 @@
+using Microsoft.EntityFrameworkCore;
 using MyTicketMaster.Core.Api.Extensions;
 using MyTicketMaster.Event.Application.Queries;
+using MyTicketMaster.Event.Persistence;
+using System.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +16,10 @@ services
     .AddEndpointsApiExplorer()
     .AddSwaggerEx("Event")
     .AddApiVersioningEx();
+//.AddDbContext<EventDbContext>(options =>
+//        options.UseSqlServer(builder.Configuration.GetConnectionString("database")));
+
+builder.AddSqlServerDbContext<EventDbContext>(connectionName: "database");
 
 builder.AddOpenTelemetry("EventService");
 

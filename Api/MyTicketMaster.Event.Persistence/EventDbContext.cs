@@ -4,12 +4,12 @@ namespace MyTicketMaster.Event.Persistence
 {
     public class EventDbContext : DbContext
     {
-        public required DbSet<Domain.Entities.Event> Events { get; set; }
-        public required DbSet<Domain.Entities.Venue> Venues { get; set; }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        public EventDbContext(DbContextOptions<EventDbContext> options) : base(options)
         {
-            optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=EventDB;Trusted_Connection=True;");
+            
         }
+
+        //public required DbSet<Domain.Entities.Event> Events { get; set; }
+        public DbSet<Domain.Entities.Venue> Venues { get; set; } = null!;
     }
 }

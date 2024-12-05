@@ -1,7 +1,17 @@
 var builder = DistributedApplication.CreateBuilder(args);
 
-builder.AddProject<Projects.MyTicketMaster_Event_Api>("myticketmaster-event-api");
+var sql = builder.AddSqlServer("myticketmaster-db")
+    .WithLifetime(ContainerLifetime.Persistent)
+    .WithDataVolume();
 
-builder.AddProject<Projects.MyTicketMaster_Booking_Api>("myticketmaster-booking-api");
+var db = sql.AddDatabase("database", "MyTicketMaster");
+
+builder.AddProject<Projects.MyTicketMaster_Event_Api>("myticketmaster-event-api")
+    .WithReference(db)
+    .WaitFor(db);
+
+builder.AddProject<Projects.MyTicketMaster_Booking_Api>("myticketmaster-booking-api")
+    .WithReference(db)
+    .WaitFor(db);
 
 builder.Build().Run();
