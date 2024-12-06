@@ -3,15 +3,15 @@ using MyTicketMaster.Event.Domain.DomainEvents;
 
 namespace MyTicketMaster.Event.Domain.Entities
 {
-    public class Venue : AggregateRoot //, IAuditableEntity
+    public class Venue : AggregateRoot, IAuditableEntity
     {
         private Venue(Guid id) : base(id)
         {
         }
 
         public required string Name { get; set; }
-        //public DateTime CreatedAtUtc { get; set; }
-        //public DateTime ModifiedAtUtc { get; set; }
+        public DateTime CreatedAtUtc { get; set; }
+        public DateTime ModifiedAtUtc { get; set; }
 
         public static Venue Create(Guid id, string name)
         {

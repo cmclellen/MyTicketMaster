@@ -9,7 +9,9 @@ namespace MyTicketMaster.Event.Persistence.EntityTypeConfigurations
         {
             builder.HasKey(c => c.Id);
             builder.Property(c => c.Name).HasMaxLength(200);
-            //builder.HasIndex(c => c.Name).IsUnique();
+            builder.HasIndex(c => c.Name).IsUnique();
+            builder.Property(c => c.CreatedAtUtc).HasDefaultValueSql("getutcdate()");
+            builder.Property(c => c.ModifiedAtUtc).HasDefaultValueSql("getutcdate()");
 
             var venues = new Domain.Entities.Venue[]
             {
