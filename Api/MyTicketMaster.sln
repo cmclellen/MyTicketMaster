@@ -45,6 +45,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyTicketMaster.Core.Domain"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyTicketMaster.Core.Application", "MyTicketMaster.Core.Application\MyTicketMaster.Core.Application.csproj", "{FAF3DA14-D613-443C-99DF-2364F4814923}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Aspire", "Aspire", "{0C688551-49F5-4AB9-8686-A8F3AAF1AD6C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyTicketMaster.Web", "MyTicketMaster.Web\MyTicketMaster.Web.csproj", "{D45D515E-8255-47C0-B643-ABE5F68D070A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -115,11 +119,17 @@ Global
 		{FAF3DA14-D613-443C-99DF-2364F4814923}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FAF3DA14-D613-443C-99DF-2364F4814923}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FAF3DA14-D613-443C-99DF-2364F4814923}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D45D515E-8255-47C0-B643-ABE5F68D070A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D45D515E-8255-47C0-B643-ABE5F68D070A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D45D515E-8255-47C0-B643-ABE5F68D070A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D45D515E-8255-47C0-B643-ABE5F68D070A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{1978351C-5F8D-4D23-921A-3BA437BD6B15} = {0C688551-49F5-4AB9-8686-A8F3AAF1AD6C}
+		{3BD49404-F1AA-4458-B88A-608F6662E288} = {0C688551-49F5-4AB9-8686-A8F3AAF1AD6C}
 		{77145513-F7F2-471B-9412-3ADF1FCA773A} = {10688E99-C685-438F-B34E-B2DB7B4C1B9C}
 		{578D4D5A-2B60-4C50-84AA-D1507FB99C98} = {10688E99-C685-438F-B34E-B2DB7B4C1B9C}
 		{6DC2B689-9090-4CEA-ADB3-A76E4EF2A80C} = {10688E99-C685-438F-B34E-B2DB7B4C1B9C}

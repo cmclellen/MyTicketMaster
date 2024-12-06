@@ -1,6 +1,6 @@
 var builder = DistributedApplication.CreateBuilder(args);
 
-var sql = builder.AddSqlServer("myticketmaster-db")
+var sql = builder.AddSqlServer("myticketmaster-db", port: 58267)
     .WithLifetime(ContainerLifetime.Persistent)
     .WithDataVolume();
 
@@ -13,5 +13,7 @@ builder.AddProject<Projects.MyTicketMaster_Event_Api>("myticketmaster-event-api"
 builder.AddProject<Projects.MyTicketMaster_Booking_Api>("myticketmaster-booking-api")
     .WithReference(db)
     .WaitFor(db);
+
+builder.AddProject<Projects.MyTicketMaster_Web>("myticketmaster-web");
 
 builder.Build().Run();
