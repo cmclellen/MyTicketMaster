@@ -3,17 +3,17 @@ using MyTicketMaster.Event.Domain.DomainEvents;
 
 namespace MyTicketMaster.Event.Domain.Entities
 {
-    public class Event : AggregateRoot, IAuditableEntity
+    public class Event : AggregateRoot //, IAuditableEntity
     {
         private Event(Guid id) : base(id) { }
 
         public required string Name { get; set; }
-        public DateTime CreatedAtUtc { get; set; }
-        public DateTime ModifiedAtUtc { get; set; }
+        //public DateTime CreatedAtUtc { get; set; }
+        //public DateTime ModifiedAtUtc { get; set; }
 
-        public static Event Create(string name)
+        public static Event Create(Guid id, string name)
         {
-            var ev = new Event(Guid.NewGuid()) { Name = name };
+            var ev = new Event(id) { Name = name };
             ev.RaiseDomainEvent(new EventCreatedDomainEvent());
             return ev;
         }

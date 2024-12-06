@@ -1,0 +1,1 @@
+add-migration InitialNew -Project MyTicketMaster.Event.Persistence -StartupProject MyTicketMaster.Event.Api

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MyTicketMaster.Event.Domain.Entities;
 
 namespace MyTicketMaster.Event.Persistence
 {
@@ -9,7 +10,14 @@ namespace MyTicketMaster.Event.Persistence
             
         }
 
-        //public required DbSet<Domain.Entities.Event> Events { get; set; }
-        public DbSet<Domain.Entities.Venue> Venues { get; set; } = null!;
+        public DbSet<Domain.Entities.Event> Events { get; set; } = null!;
+        public DbSet<Venue> Venues { get; set; } = null!;
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
+
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }

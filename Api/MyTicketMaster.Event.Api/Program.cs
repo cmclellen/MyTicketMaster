@@ -37,4 +37,14 @@ app.UseGlobalExceptionHandler();
 
 app.UseApiVersioningEx();
 
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<EventDbContext>();
+
+    var db = dbContext.Database;
+
+    db.EnsureDeleted();
+    db.Migrate();
+}
+
 app.Run();

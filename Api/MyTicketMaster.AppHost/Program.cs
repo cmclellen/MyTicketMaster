@@ -1,7 +1,9 @@
 var builder = DistributedApplication.CreateBuilder(args);
 
-var sql = builder.AddSqlServer("myticketmaster-db", port: 58267)
+var sqlPassword = builder.AddParameter("myticketmaster-db-password", secret: true);
+var sql = builder.AddSqlServer("myticketmaster-db", password: sqlPassword, port: 63814)
     .WithLifetime(ContainerLifetime.Persistent)
+    .WithContainerName("myticketmaster-db")
     .WithDataVolume();
 
 var db = sql.AddDatabase("database", "MyTicketMaster");
