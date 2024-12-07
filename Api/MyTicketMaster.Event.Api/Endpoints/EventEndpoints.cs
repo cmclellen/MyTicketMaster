@@ -8,8 +8,10 @@ using MyTicketMaster.Event.Contracts.Events;
 
 namespace MyTicketMaster.Event.Api.Endpoints
 {
-    public class EventEndpoints(ISender sender) : CarterModule("/events")
+    public class EventEndpoints() : CarterModule("/events")
     {
+        
+
         public override void AddRoutes(IEndpointRouteBuilder app)
         {
             app.MapGet("/", GetEvents)
@@ -43,7 +45,7 @@ namespace MyTicketMaster.Event.Api.Endpoints
         /// <response code="500">An unexpected error has occurred</response>
         /// [ApiConventionMethod(typeof(DefaultApiConventions))]
         [Produces("application/json")]
-        public async Task<Results<Ok<PagedResponse<EventResponse>>, InternalServerError<string>>> GetEvents()
+        public async Task<Results<Ok<PagedResponse<EventResponse>>, InternalServerError<string>>> GetEvents(ISender sender)
         {
             var response = await sender.Send(new GetEventsQuery());
             return TypedResults.Ok(response);
@@ -63,7 +65,7 @@ namespace MyTicketMaster.Event.Api.Endpoints
         /// <response code="200">Returns the list of events</response>
         /// <response code="500">An unexpected error has occurred</response>
         [Produces("application/json")]
-        public async Task<Results<Ok<PagedResponse<EventSeatResponse>>, InternalServerError<string>>> GetEventSeats(Guid eventId)
+        public async Task<Results<Ok<PagedResponse<EventSeatResponse>>, InternalServerError<string>>> GetEventSeats(Guid eventId, ISender sender)
         {
             var response = await sender.Send(new GetEventSeatsQuery());
             return TypedResults.Ok(response);

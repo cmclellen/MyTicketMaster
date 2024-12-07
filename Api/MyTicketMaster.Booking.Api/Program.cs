@@ -14,7 +14,7 @@ services
     .AddSwaggerEx("Booking")
     .AddApiVersioningEx();
 
-builder.AddOpenTelemetry("BookingService");
+//builder.AddOpenTelemetry("BookingService");
 
 var app = builder.Build();
 
