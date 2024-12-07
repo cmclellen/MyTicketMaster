@@ -1,5 +1,6 @@
 ﻿@using Clients.Events;
 @using Clients.Events.Models;
+@using MyTicketMaster.Web.Components.Shared;
 @inject EventsClient eventsClient;
 @page "/events"
 @attribute [StreamRendering]
@@ -12,7 +13,7 @@
 
 @if (events == null)
 {
-    <p><em>Loading...</em></p>
+    <Loading />
 }
 else
 {
