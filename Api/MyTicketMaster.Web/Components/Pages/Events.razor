@@ -1,4 +1,9 @@
-﻿@page "/events"
+﻿@using Clients.Events;
+@using Clients.Events.Models;
+@using Microsoft.Kiota.Abstractions.Authentication;
+@using Microsoft.Kiota.Http.HttpClientLibrary;
+@inject IHttpClientFactory factory;
+@page "/events"
 @attribute [StreamRendering]
 
 <PageTitle>Events</PageTitle>
@@ -34,24 +39,37 @@ else
 }
 
 @code {
-    private Event[]? events;
+    private IList<Event>? events;
 
     protected override async Task OnInitializedAsync()
     {
-        // Simulate asynchronous loading to demonstrate streaming rendering
-        await Task.Delay(500);
+        var client = factory.CreateClient("events-api");
 
-        var startDate = DateOnly.FromDateTime(DateTime.Now);
-        var summaries = new[] { "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching" };
-        events = Enumerable.Range(1, 5).Select(index => new Event
-        {
-            Name = summaries[Random.Shared.Next(summaries.Length)]
-        }).ToArray();
+        // var authProvider = new AnonymousAuthenticationProvider();
+        // var adapter = new HttpClientRequestAdapter(authProvider);
+        // var client = new EventsClient(adapter);
+
+        //var eventsResponse = await client.Api.V1.Events.GetAsync();
+        var eventsResponse = await client.GetFromJsonAsync<EventResponse>("events");
+        events = eventsResponse.Items!.Select(i => new Event { Name = i.Name }).ToList();
+        // Simulate asynchronous loading to demonstrate streaming rendering
+        // await Task.Delay(500);
+
+        // var startDate = DateOnly.FromDateTime(DateTime.Now);
+        // var summaries = new[] { "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching" };
+        // events = Enumerable.Range(1, 5).Select(index => new Event
+        // {
+        //     Name = summaries[Random.Shared.Next(summaries.Length)]
+        // }).ToArray();
     }
 
-    private class Event
+    public class EventResponse {
+        public List<Event> Items { get; set; } = new();
+    }
+
+    public class Event
     {
         public required string Name { get; set; }
-        
+
     }
 }

@@ -23,8 +23,7 @@ services
             options.UseSqlServer(builder.Configuration.GetConnectionString("database")));
 
 services.Scan(scan => scan
-    //.FromAssemblies(MyTicketMaster.Event.Domain.AssemblyReference.Assembly, MyTicketMaster.Event.Persistence.AssemblyReference.Assembly)
-    .FromAssembliesOf(typeof(IEventRepository), typeof(EventRepository))
+    .FromAssemblies(MyTicketMaster.Event.Domain.AssemblyReference.Assembly, MyTicketMaster.Event.Persistence.AssemblyReference.Assembly)
     .AddClasses(false)
     .UsingRegistrationStrategy(RegistrationStrategy.Skip)
     .AsMatchingInterface()

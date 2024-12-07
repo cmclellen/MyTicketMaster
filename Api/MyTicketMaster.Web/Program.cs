@@ -8,6 +8,11 @@ builder.AddServiceDefaults();
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
+builder.Services.AddHttpClient("events-api", (sp, httpClient) =>
+{
+    httpClient.BaseAddress = new Uri("https://localhost:7243/api/v1/");
+});
+
 var app = builder.Build();
 
 app.MapDefaultEndpoints();
