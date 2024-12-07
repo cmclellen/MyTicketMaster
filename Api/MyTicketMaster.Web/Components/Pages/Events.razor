@@ -37,21 +37,11 @@ else
 }
 
 @code {
-    private IList<Event>? events;
+    private IList<Clients.Events.Models.EventResponse>? events;
 
     protected override async Task OnInitializedAsync()
     {
         var eventsResponse = await eventsClient.Api.V1.Events.GetAsync();
-        events = eventsResponse.Items!.Select(i => new Event { Name = i.Name }).ToList();
-    }
-
-    public class EventResponse {
-        public List<Event> Items { get; set; } = new();
-    }
-
-    public class Event
-    {
-        public required string Name { get; set; }
-
+        events = eventsResponse.Items!;//.Select(i => new Event { Name = i.Name }).ToList();
     }
 }
