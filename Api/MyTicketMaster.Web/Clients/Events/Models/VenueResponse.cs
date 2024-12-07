@@ -12,6 +12,14 @@ namespace MyTicketMaster.Web.Clients.Events.Models
     public partial class VenueResponse : IParsable
     #pragma warning restore CS1591
     {
+        /// <summary>The name property</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? Name { get; set; }
+#nullable restore
+#else
+        public string Name { get; set; }
+#endif
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
@@ -30,6 +38,7 @@ namespace MyTicketMaster.Web.Clients.Events.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
+                { "name", n => { Name = n.GetStringValue(); } },
             };
         }
         /// <summary>
@@ -39,6 +48,7 @@ namespace MyTicketMaster.Web.Clients.Events.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
+            writer.WriteStringValue("name", Name);
         }
     }
 }

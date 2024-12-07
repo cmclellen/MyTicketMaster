@@ -1,0 +1,47 @@
+﻿@using Clients.Events;
+@using Clients.Events.Models;
+@inject EventsClient eventsClient;
+@page "/venues"
+@attribute [StreamRendering]
+
+<PageTitle>Venues</PageTitle>
+
+<h1>Venues</h1>
+
+<p>Lists all venues.</p>
+
+@if (venues == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                @* <th>Date</th>
+                <th aria-label="Temperature in Celsius">Temp. (C)</th>
+                <th aria-label="Temperature in Farenheit">Temp. (F)</th> *@
+                <th>Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var venue in venues)
+            {
+                <tr>
+                    <td>@venue.Name</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private IList<Clients.Events.Models.VenueResponse>? venues;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var venuesResponse = await eventsClient.Api.V1.Venues.GetAsync();
+        venues = venuesResponse.Items!;//.Select(i => new Event { Name = i.Name }).ToList();
+    }
+}

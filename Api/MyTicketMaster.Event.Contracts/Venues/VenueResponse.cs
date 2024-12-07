@@ -1,6 +1,4 @@
 ﻿namespace MyTicketMaster.Event.Contracts.Venues
 {
-    public class VenueResponse
-    {
-    }
+    public record VenueResponse(string Name);
 }

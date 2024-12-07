@@ -3,7 +3,7 @@
 using Microsoft.Kiota.Abstractions.Extensions;
 using Microsoft.Kiota.Abstractions;
 using MyTicketMaster.Web.Clients.Events.Api.V1.Events;
-using MyTicketMaster.Web.Clients.Events.Api.V1.Venue;
+using MyTicketMaster.Web.Clients.Events.Api.V1.Venues;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
@@ -21,10 +21,10 @@ namespace MyTicketMaster.Web.Clients.Events.Api.V1
         {
             get => new global::MyTicketMaster.Web.Clients.Events.Api.V1.Events.EventsRequestBuilder(PathParameters, RequestAdapter);
         }
-        /// <summary>The venue property</summary>
-        public global::MyTicketMaster.Web.Clients.Events.Api.V1.Venue.VenueRequestBuilder Venue
+        /// <summary>The venues property</summary>
+        public global::MyTicketMaster.Web.Clients.Events.Api.V1.Venues.VenuesRequestBuilder Venues
         {
-            get => new global::MyTicketMaster.Web.Clients.Events.Api.V1.Venue.VenueRequestBuilder(PathParameters, RequestAdapter);
+            get => new global::MyTicketMaster.Web.Clients.Events.Api.V1.Venues.VenuesRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>
         /// Instantiates a new <see cref="global::MyTicketMaster.Web.Clients.Events.Api.V1.V1RequestBuilder"/> and sets the default values.

@@ -8,7 +8,7 @@ using MyTicketMaster.Event.Contracts.Venues;
 
 namespace MyTicketMaster.Event.Api.Endpoints
 {
-    public class VenueEndpoints(ISender sender) : CarterModule("/venue")
+    public class VenueEndpoints() : CarterModule("/venues")
     {
         public override void AddRoutes(IEndpointRouteBuilder app)
         {
@@ -37,7 +37,7 @@ namespace MyTicketMaster.Event.Api.Endpoints
         /// <response code="200">Returns the list of venues</response>
         /// <response code="500">An unexpected error has occurred</response>
         [Produces("application/json")]
-        public async Task<Results<Ok<PagedResponse<VenueResponse>>, InternalServerError<string>>> GetVenues()
+        public async Task<Results<Ok<PagedResponse<VenueResponse>>, InternalServerError<string>>> GetVenues(ISender sender)
         {
             var response = await sender.Send(new GetVenuesQuery());
             return TypedResults.Ok(response);
