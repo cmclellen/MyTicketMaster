@@ -15,14 +15,9 @@ namespace MyTicketMaster.Web.Clients
             _httpClient = httpClient;
         }
 
-        //public EventsClient GetClient()
-        //{
-        //    return new EventsClient(new HttpClientRequestAdapter(_authenticationProvider, httpClient: _httpClient));
-        //}
-
-        public HttpClient GetClient()
+        public EventsClient GetClient()
         {
-            return _httpClient;
+            return new EventsClient(new HttpClientRequestAdapter(_authenticationProvider, httpClient: _httpClient));
         }
     }
 }
