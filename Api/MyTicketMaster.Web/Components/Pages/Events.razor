@@ -2,7 +2,7 @@
 @using Clients.Events.Models;
 @using Microsoft.Kiota.Abstractions.Authentication;
 @using Microsoft.Kiota.Http.HttpClientLibrary;
-@inject IHttpClientFactory factory;
+@inject MyTicketMaster.Web.Clients.EventsClientFactory eventsClientFactory;
 @page "/events"
 @attribute [StreamRendering]
 
@@ -43,13 +43,8 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        var client = factory.CreateClient("events-api");
-
-        // var authProvider = new AnonymousAuthenticationProvider();
-        // var adapter = new HttpClientRequestAdapter(authProvider);
-        // var client = new EventsClient(adapter);
-
-        //var eventsResponse = await client.Api.V1.Events.GetAsync();
+        var client = eventsClientFactory.GetClient();
+        // var eventsResponse = await eventsClient.Api.V1.Events.GetAsync();
         var eventsResponse = await client.GetFromJsonAsync<EventResponse>("events");
         events = eventsResponse.Items!.Select(i => new Event { Name = i.Name }).ToList();
         // Simulate asynchronous loading to demonstrate streaming rendering

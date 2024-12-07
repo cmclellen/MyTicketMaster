@@ -1,10 +1,6 @@
-using MediatR;
 using Microsoft.EntityFrameworkCore;
 using MyTicketMaster.Core.Api.Extensions;
-using MyTicketMaster.Event.Application.Queries;
-using MyTicketMaster.Event.Domain.Repositories;
 using MyTicketMaster.Event.Persistence;
-using MyTicketMaster.Event.Persistence.Repositories;
 using Scrutor;
 
 var builder = WebApplication.CreateBuilder(args);

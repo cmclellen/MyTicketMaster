@@ -1,6 +1,6 @@
 {
   "descriptionHash": "B31467A34EA435AE1FC9569EF0EEAE129D1919F555326918AAA0A66E592D72EAEDE3EE2DE03366C78B562FF04F954C4FF80BF9787DE6D682653033289AB2FD52",
-  "descriptionLocation": "events-api.yml",
+  "descriptionLocation": "../events-api.yml",
   "lockFileVersion": "1.0.0",
   "kiotaVersion": "1.21.0",
   "clientClassName": "EventsClient",

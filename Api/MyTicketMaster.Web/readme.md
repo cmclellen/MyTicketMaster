@@ -1,1 +1,1 @@
-﻿kiota generate -l CSharp -c EventsClient -n MyTicketMaster.Web.Clients.Events -d ./Clients/events-api.yml -o ./Clients --exclude-backward-compatible
+﻿kiota generate -l CSharp -c EventsClient -n MyTicketMaster.Web.Clients.Events -d ./Clients/events-api.yml -o ./Clients/Events --exclude-backward-compatible
