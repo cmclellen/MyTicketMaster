@@ -1,0 +1,29 @@
+﻿@using Clients.Events;
+@inject EventsClient eventsClient;
+@page "/venues/{id:guid}"
+@rendermode InteractiveServer
+
+<PageTitle>Add Venue</PageTitle>
+
+<h1>Add Venue</h1>
+
+<form class="row g-3">
+    <div>
+        <label for="venueName" class="form-label">Name</label>
+        <input type="text" class="form-control" id="venueName" placeholder="Optus Stadium">
+    </div>
+    <div class="d-flex justify-content-end">
+        <button type="submit" class="btn btn-primary" @onclick="SaveVenue">Save</button>
+    </div>
+</form>
+
+@code {
+    [Parameter]
+    public Guid Id { get; set; }
+
+    public void SaveVenue() 
+    {
+        
+        //eventsClient.Api.V1.Venues.
+    }
+}

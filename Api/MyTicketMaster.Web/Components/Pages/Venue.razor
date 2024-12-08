@@ -1,8 +1,11 @@
 ﻿@using Clients.Events;
 @using Clients.Events.Models;
 @inject EventsClient eventsClient;
+@inject ILogger<Venue> Logger
+@inject NavigationManager Navigation
 @page "/venues"
 @attribute [StreamRendering]
+@rendermode InteractiveServer
 
 <PageTitle>Venues</PageTitle>
 
@@ -12,16 +15,14 @@
 
 @if (venues == null)
 {
-    <Loading />
+    <MyTicketMaster.Web.Components.Shared.Loading />
 }
 else
 {
+
     <table class="table">
         <thead>
             <tr>
-                @* <th>Date</th>
-                <th aria-label="Temperature in Celsius">Temp. (C)</th>
-                <th aria-label="Temperature in Farenheit">Temp. (F)</th> *@
                 <th>Name</th>
             </tr>
         </thead>
@@ -34,14 +35,23 @@ else
             }
         </tbody>
     </table>
+    <div class="d-flex justify-content-end">
+        <button class="btn btn-primary" @onclick="AddVenue">Add</button>
+    </div>
 }
 
 @code {
-    private IList<Clients.Events.Models.VenueResponse>? venues;
+    private IList<Clients.Events.Models.VenueResponse>? venues = new List<Clients.Events.Models.VenueResponse>();
 
     protected override async Task OnInitializedAsync()
     {
         var venuesResponse = await eventsClient.Api.V1.Venues.GetAsync();
-        venues = venuesResponse.Items!;//.Select(i => new Event { Name = i.Name }).ToList();
+        venues = venuesResponse!.Items!;
+    }
+
+    private void AddVenue()
+    {
+        Console.WriteLine("Test");
+        Navigation.NavigateTo("/venues/95CB36DB-4C9E-4176-8EF4-D6A90AFCC9E6", forceLoad: true);
     }
 }
