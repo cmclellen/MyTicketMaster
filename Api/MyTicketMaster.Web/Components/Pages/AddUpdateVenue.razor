@@ -14,7 +14,7 @@
         <input type="text" class="form-control" id="venueName" placeholder="Optus Stadium" @bind="Name">
     </div>
     <div class="d-flex justify-content-end">
-        <button type="submit" class="btn btn-primary" @onclick="SaveVenue">Save</button>
+        <button type="submit" class="btn btn-primary" @onclick=SaveVenue>Save</button>
     </div>
 </form>
 
@@ -29,6 +29,6 @@
     {
         var request = new Clients.Events.Models.CreateVenueRequest { Name = Name };
         await eventsClient.Api.V1.Venues.PostAsync(request);
-        Navigation.NavigateTo("/venues");
+        Navigation.NavigateTo("/venues", true);
     }
 }
