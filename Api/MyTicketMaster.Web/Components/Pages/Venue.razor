@@ -9,9 +9,15 @@
 
 <PageTitle>Venues</PageTitle>
 
-<h1>Venues</h1>
+<div class="d-flex flex-wrap flex-sm-nowrap">
+    <h1 class="w-100">Venues</h1>
+    <div class="flex-grow-1 d-flex justify-content-end align-items-center">
+        <div class="flex-grow-1 d-grid d-block">
+            <button class="btn btn-primary" @onclick="AddVenue" type="button">Add</button>
+        </div>
+    </div>
+</div>
 
-<p>Lists all venues.</p>
 
 @if (venues == null)
 {
@@ -31,13 +37,17 @@ else
             {
                 <tr>
                     <td>@venue.Name</td>
+                    <td>
+                        <a href="javascript: void(0);"
+                          @onclick:preventDefault
+                          @onclick:stopPropagation                           
+                          @onclick="(e) => DeleteVenue(venue.Id)">Delete</a>
+                    </td>
                 </tr>
             }
         </tbody>
     </table>
-    <div class="d-flex justify-content-end">
-        <button class="btn btn-primary" @onclick="AddVenue">Add</button>
-    </div>
+
 }
 
 @code {
@@ -47,6 +57,11 @@ else
     {
         var venuesResponse = await eventsClient.Api.V1.Venues.GetAsync();
         venues = venuesResponse!.Items!;
+    }
+
+    async Task DeleteVenue(Guid? venueId) {
+        await eventsClient.Api.V1.Venues[venueId!.Value].DeleteAsync();
+        Navigation.Refresh(true);
     }
 
     private void AddVenue()

@@ -3,6 +3,7 @@
 using Microsoft.Kiota.Abstractions.Extensions;
 using Microsoft.Kiota.Abstractions.Serialization;
 using Microsoft.Kiota.Abstractions;
+using MyTicketMaster.Web.Clients.Events.Api.V1.Venues.Item;
 using MyTicketMaster.Web.Clients.Events.Models;
 using System.Collections.Generic;
 using System.IO;
@@ -17,6 +18,18 @@ namespace MyTicketMaster.Web.Clients.Events.Api.V1.Venues
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class VenuesRequestBuilder : BaseRequestBuilder
     {
+        /// <summary>Gets an item from the MyTicketMaster.Web.Clients.Events.api.v1.venues.item collection</summary>
+        /// <param name="position">Unique identifier of the item</param>
+        /// <returns>A <see cref="global::MyTicketMaster.Web.Clients.Events.Api.V1.Venues.Item.VenuesItemRequestBuilder"/></returns>
+        public global::MyTicketMaster.Web.Clients.Events.Api.V1.Venues.Item.VenuesItemRequestBuilder this[Guid position]
+        {
+            get
+            {
+                var urlTplParams = new Dictionary<string, object>(PathParameters);
+                urlTplParams.Add("id", position);
+                return new global::MyTicketMaster.Web.Clients.Events.Api.V1.Venues.Item.VenuesItemRequestBuilder(urlTplParams, RequestAdapter);
+            }
+        }
         /// <summary>
         /// Instantiates a new <see cref="global::MyTicketMaster.Web.Clients.Events.Api.V1.Venues.VenuesRequestBuilder"/> and sets the default values.
         /// </summary>
