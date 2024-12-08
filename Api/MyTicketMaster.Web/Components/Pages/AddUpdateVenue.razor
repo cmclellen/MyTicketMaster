@@ -1,5 +1,6 @@
 ﻿@using Clients.Events;
 @inject EventsClient eventsClient;
+@inject NavigationManager Navigation
 @page "/venues/{id:guid}"
 @rendermode InteractiveServer
 
@@ -10,7 +11,7 @@
 <form class="row g-3">
     <div>
         <label for="venueName" class="form-label">Name</label>
-        <input type="text" class="form-control" id="venueName" placeholder="Optus Stadium">
+        <input type="text" class="form-control" id="venueName" placeholder="Optus Stadium" @bind="Name">
     </div>
     <div class="d-flex justify-content-end">
         <button type="submit" class="btn btn-primary" @onclick="SaveVenue">Save</button>
@@ -21,9 +22,13 @@
     [Parameter]
     public Guid Id { get; set; }
 
-    public void SaveVenue() 
+    public string Name { get; set; } = "";
+    public EventCallback<string> NameChanged { get; set; }
+
+    private async Task SaveVenue()
     {
-        
-        //eventsClient.Api.V1.Venues.
+        var request = new Clients.Events.Models.CreateVenueRequest { Name = Name };
+        await eventsClient.Api.V1.Venues.PostAsync(request);
+        Navigation.NavigateTo("/venues");
     }
 }

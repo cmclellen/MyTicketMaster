@@ -3,5 +3,6 @@
     public interface IVenueRepository
     {
         IList<Entities.Venue> GetAll();
+        Entities.Venue Create(Entities.Venue venue);
     }
 }

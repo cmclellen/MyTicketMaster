@@ -17,8 +17,4 @@
     <ProjectReference Include="..\MyTicketMaster.Event.Domain\MyTicketMaster.Event.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Commands\" />
-  </ItemGroup>
-
 </Project>
