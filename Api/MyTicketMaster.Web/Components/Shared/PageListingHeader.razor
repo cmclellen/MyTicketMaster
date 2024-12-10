@@ -1,0 +1,23 @@
+﻿@inject NavigationManager Navigation;
+
+<div class="d-flex flex-wrap flex-sm-nowrap">
+    <h1 class="w-100">@Title</h1>
+    <div class="flex-grow-1 d-flex justify-content-end align-items-center">
+        <div class="flex-grow-1 d-grid d-block">
+            <button class="btn btn-primary" @onclick="AddItem" type="button">Add</button>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public required string Title { get; set; }
+
+    [Parameter]
+    public required string NavigateTo { get; set; }
+
+    private void AddItem()
+    {
+        Navigation.NavigateTo(NavigateTo);
+    }
+}

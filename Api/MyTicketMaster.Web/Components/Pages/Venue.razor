@@ -9,15 +9,7 @@
 
 <PageTitle>Venues</PageTitle>
 
-<div class="d-flex flex-wrap flex-sm-nowrap">
-    <h1 class="w-100">Venues</h1>
-    <div class="flex-grow-1 d-flex justify-content-end align-items-center">
-        <div class="flex-grow-1 d-grid d-block">
-            <button class="btn btn-primary" @onclick="AddVenue" type="button">Add</button>
-        </div>
-    </div>
-</div>
-
+<MyTicketMaster.Web.Components.Shared.PageListingHeader Title="Venues" NavigateTo="/venues/add" />
 
 @if (venues == null)
 {
@@ -62,10 +54,5 @@ else
     async Task DeleteVenue(Guid? venueId) {
         await eventsClient.Api.V1.Venues[venueId!.Value].DeleteAsync();
         Navigation.Refresh(true);
-    }
-
-    private void AddVenue()
-    {
-        Navigation.NavigateTo("/venues/95CB36DB-4C9E-4176-8EF4-D6A90AFCC9E6");
     }
 }

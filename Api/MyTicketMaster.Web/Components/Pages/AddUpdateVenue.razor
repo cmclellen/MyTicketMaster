@@ -2,6 +2,7 @@
 @inject EventsClient eventsClient;
 @inject NavigationManager Navigation
 @page "/venues/{id:guid}"
+@page "/venues/add"
 @rendermode InteractiveServer
 
 <PageTitle>Add Venue</PageTitle>
@@ -11,7 +12,8 @@
 <div class="row g-3">
     <div>
         <label for="venueName" class="form-label">Name</label>
-        <input type="text" class="form-control" id="venueName" placeholder="Optus Stadium" @bind="Name">
+        <input type="text" class="form-control" id="venueName" placeholder="Optus Stadium" @bind="venue!.Name">
+        @* <ValidationMessage For="() => venue!.Name" class="text-danger" /> *@
     </div>
     <div class="justify-content-md-end d-grid d-block">
         <button type="submit" class="btn btn-primary" @onclick=SaveVenue>Save</button>
@@ -20,14 +22,19 @@
 
 @code {
     [Parameter]
-    public Guid Id { get; set; }
+    public Guid? Id { get; set; }
 
-    public string Name { get; set; } = "";
-    public EventCallback<string> NameChanged { get; set; }
+    public Models.Venue? venue;
+
+    protected override async Task OnInitializedAsync()
+    {
+        venue = new Models.Venue();
+        await Task.CompletedTask;
+    }
 
     private async Task SaveVenue()
     {
-        var request = new Clients.Events.Models.CreateVenueRequest { Name = Name };
+        var request = new Clients.Events.Models.CreateVenueRequest { Name = venue!.Name };
         await eventsClient.Api.V1.Venues.PostAsync(request);
         Navigation.NavigateTo("/venues", true);
     }
