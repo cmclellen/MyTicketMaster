@@ -7,6 +7,12 @@ namespace MyTicketMaster.Event.Persistence.Repositories
     {
         private DbSet<Domain.Entities.Event> DbSet => eventDbContext.Set<Domain.Entities.Event>();
 
+        public Domain.Entities.Event Create(Domain.Entities.Event eventItem)
+        {
+            DbSet.Add(eventItem);
+            return eventItem;
+        }
+
         public async Task DeleteAsync(Guid id, CancellationToken cancellationToken)
         {
             var eventItem = await DbSet.FindAsync(id, cancellationToken);
