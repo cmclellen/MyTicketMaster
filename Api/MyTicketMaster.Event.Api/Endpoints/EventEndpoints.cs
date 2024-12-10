@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using MyTicketMaster.Core.Requests;
+using MyTicketMaster.Event.Application.Commands;
 using MyTicketMaster.Event.Application.Queries;
 using MyTicketMaster.Event.Contracts.Events;
 
@@ -25,10 +26,21 @@ namespace MyTicketMaster.Event.Api.Endpoints
             //    return op;
             //});
 
+            app.MapPost("/", CreateEvent)
+                .WithName(nameof(CreateEvent))
+                .MapToApiVersion(1)
+                .WithTags(nameof(CreateEvent));
+
             app.MapGet("/{eventId:guid}/seats", GetEventSeats)
                 .WithName(nameof(GetEventSeats))
                 .MapToApiVersion(1)
                 .WithTags(nameof(GetEventSeats));
+
+            app.MapDelete("/{id:guid}", DeleteEvent)
+                .WithName(nameof(DeleteEvent))
+                .MapToApiVersion(1)
+                //.Produces(StatusCodes.Status500InternalServerError)
+                .WithTags(nameof(DeleteEvent));
         }
 
         /// <summary>
@@ -69,6 +81,40 @@ namespace MyTicketMaster.Event.Api.Endpoints
         {
             var response = await sender.Send(new GetEventSeatsQuery());
             return TypedResults.Ok(response);
+        }
+
+        /// <summary>
+        /// Deletes an event.
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     DELETE /event/{id:guid}
+        ///
+        /// </remarks>
+        /// <response code="204"></response>
+        /// <response code="500">An unexpected error has occurred</response>
+        public async Task<Results<NoContent, InternalServerError<string>>> DeleteEvent(Guid id, ISender sender)
+        {
+            await sender.Send(new DeleteEventCommand(id));
+            return TypedResults.NoContent();
+        }
+
+        /// <summary>
+        /// Creates an event.
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     POST /event
+        ///
+        /// </remarks>
+        /// <response code="201"></response>
+        /// <response code="500">An unexpected error has occurred</response>
+        public async Task<Results<Ok, InternalServerError<string>>> CreateEvent(CreateEventRequest request, ISender sender)
+        {
+            await sender.Send(new CreateEventCommand(request.Name));
+            return TypedResults.Ok();
         }
     }
 }

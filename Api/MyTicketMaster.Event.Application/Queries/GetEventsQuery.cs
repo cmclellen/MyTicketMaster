@@ -14,7 +14,7 @@ namespace MyTicketMaster.Event.Application.Queries
         public async Task<PagedResponse<EventResponse>> Handle(GetEventsQuery request, CancellationToken cancellationToken)
         {
             var events = eventRepository.GetAll();
-            var list = events.Select(e=> new EventResponse(e.Name));
+            var list = events.Select(e=> new EventResponse(Guid.NewGuid(), e.Name));
             await Task.CompletedTask;
             return new PagedResponse<EventResponse>(list);
         }

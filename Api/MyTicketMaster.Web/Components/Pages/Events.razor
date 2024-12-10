@@ -7,9 +7,7 @@
 
 <PageTitle>Events</PageTitle>
 
-<h1>Events</h1>
-
-<p>Lists all events.</p>
+<MyTicketMaster.Web.Components.Shared.PageListingHeader Title="Events" NavigateTo="/events/add" />
 
 @if (events == null)
 {
@@ -24,13 +22,17 @@ else
                 <th aria-label="Temperature in Celsius">Temp. (C)</th>
                 <th aria-label="Temperature in Farenheit">Temp. (F)</th> *@
                 <th>Name</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var forecast in events)
+            @foreach (var eventItem in events)
             {
                 <tr>
-                    <td>@forecast.Name</td>
+                    <td>@eventItem.Name</td>
+                    <td>
+                        <MyTicketMaster.Web.Components.Shared.DeleteRowItem Id="@eventItem.Id!.Value" OnDeleteAsync="DeleteEventAsync" />
+                    </td>
                 </tr>
             }
         </tbody>
@@ -43,6 +45,11 @@ else
     protected override async Task OnInitializedAsync()
     {
         var eventsResponse = await eventsClient.Api.V1.Events.GetAsync();
-        events = eventsResponse.Items!;//.Select(i => new Event { Name = i.Name }).ToList();
+        events = eventsResponse!.Items!;//.Select(i => new Event { Name = i.Name }).ToList();
+    }
+
+    async Task DeleteEventAsync(Guid eventId)
+    {
+        await eventsClient.Api.V1.Events[eventId].DeleteAsync();
     }
 }

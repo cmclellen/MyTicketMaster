@@ -27,13 +27,11 @@ namespace MyTicketMaster.Event.Api.Endpoints
             app.MapPost("/", CreateVenue)
                 .WithName(nameof(CreateVenue))
                 .MapToApiVersion(1)
-                //.Produces(StatusCodes.Status500InternalServerError)
                 .WithTags(nameof(CreateVenue));
 
             app.MapDelete("/{id:guid}", DeleteVenue)
                 .WithName(nameof(DeleteVenue))
                 .MapToApiVersion(1)
-                //.Produces(StatusCodes.Status500InternalServerError)
                 .WithTags(nameof(DeleteVenue));
         }
 

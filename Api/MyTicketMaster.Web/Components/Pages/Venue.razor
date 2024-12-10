@@ -22,6 +22,7 @@ else
         <thead>
             <tr>
                 <th>Name</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -30,10 +31,7 @@ else
                 <tr>
                     <td>@venue.Name</td>
                     <td>
-                        <a href="javascript: void(0);"
-                          @onclick:preventDefault
-                          @onclick:stopPropagation                           
-                          @onclick="(e) => DeleteVenue(venue.Id)">Delete</a>
+                        <MyTicketMaster.Web.Components.Shared.DeleteRowItem Id="@venue.Id!.Value" OnDeleteAsync="DeleteVenueAsync" />
                     </td>
                 </tr>
             }
@@ -51,8 +49,7 @@ else
         venues = venuesResponse!.Items!;
     }
 
-    async Task DeleteVenue(Guid? venueId) {
-        await eventsClient.Api.V1.Venues[venueId!.Value].DeleteAsync();
-        Navigation.Refresh(true);
+    async Task DeleteVenueAsync(Guid venueId) {
+        await eventsClient.Api.V1.Venues[venueId].DeleteAsync();
     }
 }

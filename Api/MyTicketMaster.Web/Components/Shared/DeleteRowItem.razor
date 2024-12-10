@@ -1,0 +1,22 @@
+﻿@inject NavigationManager Navigation;
+
+<a href="javascript: void(0);"
+  @onclick:preventDefault
+  @onclick:stopPropagation
+  @onclick="(e) => OnDeleteRowItem()">Delete</a>
+
+@code {
+
+    [Parameter]
+    public Guid Id { get; set; }
+
+    [Parameter]
+    public required Func<Guid, Task> OnDeleteAsync { get; set; }
+
+    async Task OnDeleteRowItem()
+    {
+        await OnDeleteAsync(Id);
+        Navigation.Refresh(true);
+        await Task.CompletedTask;
+    }
+}
