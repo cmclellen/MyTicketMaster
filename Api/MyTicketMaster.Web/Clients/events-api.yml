@@ -386,6 +386,10 @@
           "venueId": {
             "type": "string",
             "format": "uuid"
+          },
+          "venueName": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false

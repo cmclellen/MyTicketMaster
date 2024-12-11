@@ -13,7 +13,7 @@ namespace MyTicketMaster.Event.Application.Queries
             var eventItem = await eventRepository.GetByIdAsync(request.eventId, cancellationToken);
             if (eventItem != null)
             {
-                return new EventResponse(eventItem.Id, eventItem.Name, eventItem.VenueId);
+                return new EventResponse(eventItem.Id, eventItem.Name, eventItem.VenueId, eventItem.Name);
             }
             return null;
         }

@@ -24,7 +24,7 @@
     <div class="col-6 placeholder-wave">
         <label for="venue" class="form-label">Venue</label>
         @if (venues is not null) {
-            <select class="form-select" aria-label="Default select example">
+            <select @bind="eventItem!.VenueId" class="form-select" aria-label="Default select example">
                 @foreach (var venueItem in venues) {
                     <option value="@venueItem.Id" selected="@(venueItem.Id==eventItem!.VenueId)">@venueItem.Name</option>
                 }
@@ -68,8 +68,13 @@
 
     private async Task SaveEvent()
     {
-        var request = new Clients.Events.Models.CreateEventRequest { Name = eventItem!.Name };
-        await eventsClient.Api.V1.Events.PostAsync(request);
-        Navigation.NavigateTo("/events", true);
+      if(Id.HasValue) {
+            var updateRequest = new Clients.Events.Models.UpdateEventRequest { Id=Id.Value, Name = eventItem!.Name, VenueId= eventItem.VenueId};
+            await eventsClient.Api.V1.Events.PutAsync(updateRequest);
+      } else {
+            var createRequest = new Clients.Events.Models.CreateEventRequest { Name = eventItem!.Name, VenueId = eventItem!.VenueId };
+            await eventsClient.Api.V1.Events.PostAsync(createRequest);
+      } 
+      Navigation.NavigateTo("/events", true);
     }
 }

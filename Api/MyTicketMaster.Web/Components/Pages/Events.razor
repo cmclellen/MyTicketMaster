@@ -20,6 +20,7 @@ else
         <thead>
             <tr>
                 <th>Name</th>
+                <th>Venue</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -28,6 +29,7 @@ else
             {
                 <tr>
                     <td><a href="/events/@eventItem.Id">@eventItem.Name</a></td>
+                    <td>@eventItem.VenueName</td>
                     <td>
                         <MyTicketMaster.Web.Components.Shared.DeleteRowItem Id="@eventItem.Id!.Value" OnDeleteAsync="DeleteEventAsync" />
                     </td>

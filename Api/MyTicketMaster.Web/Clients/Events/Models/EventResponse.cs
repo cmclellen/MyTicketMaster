@@ -24,6 +24,14 @@ namespace MyTicketMaster.Web.Clients.Events.Models
 #endif
         /// <summary>The venueId property</summary>
         public Guid? VenueId { get; set; }
+        /// <summary>The venueName property</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public string? VenueName { get; set; }
+#nullable restore
+#else
+        public string VenueName { get; set; }
+#endif
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
@@ -45,6 +53,7 @@ namespace MyTicketMaster.Web.Clients.Events.Models
                 { "id", n => { Id = n.GetGuidValue(); } },
                 { "name", n => { Name = n.GetStringValue(); } },
                 { "venueId", n => { VenueId = n.GetGuidValue(); } },
+                { "venueName", n => { VenueName = n.GetStringValue(); } },
             };
         }
         /// <summary>
@@ -57,6 +66,7 @@ namespace MyTicketMaster.Web.Clients.Events.Models
             writer.WriteGuidValue("id", Id);
             writer.WriteStringValue("name", Name);
             writer.WriteGuidValue("venueId", VenueId);
+            writer.WriteStringValue("venueName", VenueName);
         }
     }
 }

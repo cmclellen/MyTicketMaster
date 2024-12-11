@@ -21,12 +21,14 @@ namespace MyTicketMaster.Event.Persistence.Repositories
 
         public async Task<IList<Domain.Entities.Event>> GetAllAsync(CancellationToken cancellationToken)
         {
-            return await DbSet.ToListAsync();
+            return await DbSet
+                .Include(e=>e.Venue)
+                .ToListAsync();
         }
 
         public async Task<Domain.Entities.Event?> GetByIdAsync(Guid eventId, CancellationToken cancellationToken)
         {
-            return await DbSet.FindAsync(eventId, cancellationToken);
+            return await DbSet.Include(e=>e.Venue).FirstOrDefaultAsync(e=>e.Id == eventId);
         }
 
         public void Update(Domain.Entities.Event eventItem)
