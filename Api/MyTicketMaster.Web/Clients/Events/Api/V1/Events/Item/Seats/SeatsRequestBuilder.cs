@@ -12,7 +12,7 @@ using System;
 namespace MyTicketMaster.Web.Clients.Events.Api.V1.Events.Item.Seats
 {
     /// <summary>
-    /// Builds and executes requests for operations under \api\v1\events\{event-id}\seats
+    /// Builds and executes requests for operations under \api\v1\events\{eventId}\seats
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class SeatsRequestBuilder : BaseRequestBuilder
@@ -22,7 +22,7 @@ namespace MyTicketMaster.Web.Clients.Events.Api.V1.Events.Item.Seats
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public SeatsRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/api/v1/events/{event%2Did}/seats", pathParameters)
+        public SeatsRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/api/v1/events/{eventId}/seats", pathParameters)
         {
         }
         /// <summary>
@@ -30,7 +30,7 @@ namespace MyTicketMaster.Web.Clients.Events.Api.V1.Events.Item.Seats
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public SeatsRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/api/v1/events/{event%2Did}/seats", rawUrl)
+        public SeatsRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/api/v1/events/{eventId}/seats", rawUrl)
         {
         }
         /// <summary>

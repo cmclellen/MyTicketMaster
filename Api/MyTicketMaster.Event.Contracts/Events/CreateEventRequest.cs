@@ -1,4 +1,4 @@
 ﻿namespace MyTicketMaster.Event.Contracts.Events
 {
-    public record CreateEventRequest(string Name);
+    public record CreateEventRequest(string Name, Guid VenueId);
 }

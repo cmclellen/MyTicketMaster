@@ -26,7 +26,7 @@
         @if (venues is not null) {
             <select class="form-select" aria-label="Default select example">
                 @foreach (var venueItem in venues) {
-                    <option value="@venueItem.Id">@venueItem.Name</option>
+                    <option value="@venueItem.Id" selected="@(venueItem.Id==eventItem!.VenueId)">@venueItem.Name</option>
                 }
             </select>
         } else {
@@ -48,6 +48,9 @@
 
     protected override async Task OnInitializedAsync()
     {
+        var venuesResponse = await eventsClient.Api.V1.Venues.GetAsync();
+        venues = venuesResponse!.Items!.Select(item => new Models.Venue { Id = item.Id!.Value, Name = item.Name }).ToList();
+
         if(Id is not null) {
             var eventResponse = await eventsClient.Api.V1.Events[Id.Value].GetAsync();
             if (eventResponse is not null) {
@@ -55,16 +58,12 @@
                     {
                         Id = eventResponse.Id,
                         Name = eventResponse.Name,
+                        VenueId = eventResponse.VenueId
                     };
             }            
         } else {
             eventItem = new Models.Event();
-        }        
-
-        var venuesResponse = await eventsClient.Api.V1.Venues.GetAsync();
-        venues = venuesResponse!.Items!.Select(item => new Models.Venue { Id = item.Id!.Value, Name = item.Name }).ToList();
-
-        StateHasChanged();
+        }
     }
 
     private async Task SaveEvent()

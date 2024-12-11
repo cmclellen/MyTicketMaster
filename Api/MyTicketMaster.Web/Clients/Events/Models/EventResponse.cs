@@ -22,6 +22,8 @@ namespace MyTicketMaster.Web.Clients.Events.Models
 #else
         public string Name { get; set; }
 #endif
+        /// <summary>The venueId property</summary>
+        public Guid? VenueId { get; set; }
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
@@ -42,6 +44,7 @@ namespace MyTicketMaster.Web.Clients.Events.Models
             {
                 { "id", n => { Id = n.GetGuidValue(); } },
                 { "name", n => { Name = n.GetStringValue(); } },
+                { "venueId", n => { VenueId = n.GetGuidValue(); } },
             };
         }
         /// <summary>
@@ -53,6 +56,7 @@ namespace MyTicketMaster.Web.Clients.Events.Models
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
             writer.WriteGuidValue("id", Id);
             writer.WriteStringValue("name", Name);
+            writer.WriteGuidValue("venueId", VenueId);
         }
     }
 }

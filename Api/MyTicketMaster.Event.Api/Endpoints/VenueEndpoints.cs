@@ -16,20 +16,14 @@ namespace MyTicketMaster.Event.Api.Endpoints
             app.MapGet("/", GetVenues)
                 .WithName(nameof(GetVenues))
                 .MapToApiVersion(1)
-                //.Produces(StatusCodes.Status500InternalServerError)
                 .WithTags(nameof(GetVenues));
-            //.WithOpenApi(op =>
-            //{
-            //    op.RequestBody.Required = false;
-            //    return op;
-            //});
-
+            
             app.MapPost("/", CreateVenue)
                 .WithName(nameof(CreateVenue))
                 .MapToApiVersion(1)
                 .WithTags(nameof(CreateVenue));
 
-            app.MapDelete("/{id:guid}", DeleteVenue)
+            app.MapDelete("/{venueId:guid}", DeleteVenue)
                 .WithName(nameof(DeleteVenue))
                 .MapToApiVersion(1)
                 .WithTags(nameof(DeleteVenue));
@@ -77,14 +71,14 @@ namespace MyTicketMaster.Event.Api.Endpoints
         /// <remarks>
         /// Sample request:
         ///
-        ///     DELETE /venue/{id:guid}
+        ///     DELETE /venue/{venueId:guid}
         ///
         /// </remarks>
         /// <response code="204"></response>
         /// <response code="500">An unexpected error has occurred</response>
-        public async Task<Results<NoContent, InternalServerError<string>>> DeleteVenue(Guid id, ISender sender)
+        public async Task<Results<NoContent, InternalServerError<string>>> DeleteVenue(Guid venueId, ISender sender)
         {
-            await sender.Send(new DeleteVenueCommand(id));
+            await sender.Send(new DeleteVenueCommand(venueId));
             return TypedResults.NoContent();
         }
     }

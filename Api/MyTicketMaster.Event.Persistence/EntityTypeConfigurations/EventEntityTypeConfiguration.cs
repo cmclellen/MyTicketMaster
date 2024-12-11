@@ -13,11 +13,7 @@ namespace MyTicketMaster.Event.Persistence.EntityTypeConfigurations
             builder.Property(c => c.CreatedAtUtc).HasDefaultValueSql("getutcdate()");
             builder.Property(c => c.ModifiedAtUtc).HasDefaultValueSql("getutcdate()");
 
-            var events = new Domain.Entities.Event[] {
-                Domain.Entities.Event.Create(new Guid("7888E967-AF2A-4B81-B971-034C003835FA"), "MJ the Musical"),
-                Domain.Entities.Event.Create(new Guid("64379420-5DA1-425E-AEB2-DA3D92217528"), "Beauty and the Beast")
-            };
-            builder.HasData(events);
+            builder.HasOne(c => c.Venue).WithMany().HasForeignKey(c=>c.VenueId);
         }
     }
 }

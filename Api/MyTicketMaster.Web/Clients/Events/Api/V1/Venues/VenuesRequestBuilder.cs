@@ -20,14 +20,14 @@ namespace MyTicketMaster.Web.Clients.Events.Api.V1.Venues
     {
         /// <summary>Gets an item from the MyTicketMaster.Web.Clients.Events.api.v1.venues.item collection</summary>
         /// <param name="position">Unique identifier of the item</param>
-        /// <returns>A <see cref="global::MyTicketMaster.Web.Clients.Events.Api.V1.Venues.Item.VenuesItemRequestBuilder"/></returns>
-        public global::MyTicketMaster.Web.Clients.Events.Api.V1.Venues.Item.VenuesItemRequestBuilder this[Guid position]
+        /// <returns>A <see cref="global::MyTicketMaster.Web.Clients.Events.Api.V1.Venues.Item.WithVenueItemRequestBuilder"/></returns>
+        public global::MyTicketMaster.Web.Clients.Events.Api.V1.Venues.Item.WithVenueItemRequestBuilder this[Guid position]
         {
             get
             {
                 var urlTplParams = new Dictionary<string, object>(PathParameters);
-                urlTplParams.Add("id", position);
-                return new global::MyTicketMaster.Web.Clients.Events.Api.V1.Venues.Item.VenuesItemRequestBuilder(urlTplParams, RequestAdapter);
+                urlTplParams.Add("venueId", position);
+                return new global::MyTicketMaster.Web.Clients.Events.Api.V1.Venues.Item.WithVenueItemRequestBuilder(urlTplParams, RequestAdapter);
             }
         }
         /// <summary>

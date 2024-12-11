@@ -28,5 +28,10 @@ namespace MyTicketMaster.Event.Persistence.Repositories
         {
             return await DbSet.FindAsync(eventId, cancellationToken);
         }
+
+        public void Update(Domain.Entities.Event eventItem)
+        {
+            eventDbContext.Entry(eventItem).State = EntityState.Modified;
+        }
     }
 }

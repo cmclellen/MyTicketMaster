@@ -20,14 +20,14 @@ namespace MyTicketMaster.Web.Clients.Events.Api.V1.Events
     {
         /// <summary>Gets an item from the MyTicketMaster.Web.Clients.Events.api.v1.events.item collection</summary>
         /// <param name="position">Unique identifier of the item</param>
-        /// <returns>A <see cref="global::MyTicketMaster.Web.Clients.Events.Api.V1.Events.Item.EventItemRequestBuilder"/></returns>
-        public global::MyTicketMaster.Web.Clients.Events.Api.V1.Events.Item.EventItemRequestBuilder this[Guid position]
+        /// <returns>A <see cref="global::MyTicketMaster.Web.Clients.Events.Api.V1.Events.Item.WithEventItemRequestBuilder"/></returns>
+        public global::MyTicketMaster.Web.Clients.Events.Api.V1.Events.Item.WithEventItemRequestBuilder this[Guid position]
         {
             get
             {
                 var urlTplParams = new Dictionary<string, object>(PathParameters);
-                urlTplParams.Add("event%2Did", position);
-                return new global::MyTicketMaster.Web.Clients.Events.Api.V1.Events.Item.EventItemRequestBuilder(urlTplParams, RequestAdapter);
+                urlTplParams.Add("eventId", position);
+                return new global::MyTicketMaster.Web.Clients.Events.Api.V1.Events.Item.WithEventItemRequestBuilder(urlTplParams, RequestAdapter);
             }
         }
         /// <summary>
@@ -84,6 +84,26 @@ namespace MyTicketMaster.Web.Clients.Events.Api.V1.Events
             await RequestAdapter.SendNoContentAsync(requestInfo, default, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
+        /// Sample request:                PUT /event
+        /// </summary>
+        /// <returns>A <see cref="Stream"/></returns>
+        /// <param name="body">The request body</param>
+        /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
+        /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public async Task<Stream?> PutAsync(global::MyTicketMaster.Web.Clients.Events.Models.UpdateEventRequest body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        {
+#nullable restore
+#else
+        public async Task<Stream> PutAsync(global::MyTicketMaster.Web.Clients.Events.Models.UpdateEventRequest body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        {
+#endif
+            _ = body ?? throw new ArgumentNullException(nameof(body));
+            var requestInfo = ToPutRequestInformation(body, requestConfiguration);
+            return await RequestAdapter.SendPrimitiveAsync<Stream>(requestInfo, default, cancellationToken).ConfigureAwait(false);
+        }
+        /// <summary>
         /// Sample request:                GET /events
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
@@ -119,6 +139,28 @@ namespace MyTicketMaster.Web.Clients.Events.Api.V1.Events
 #endif
             _ = body ?? throw new ArgumentNullException(nameof(body));
             var requestInfo = new RequestInformation(Method.POST, UrlTemplate, PathParameters);
+            requestInfo.Configure(requestConfiguration);
+            requestInfo.Headers.TryAdd("Accept", "application/json");
+            requestInfo.SetContentFromParsable(RequestAdapter, "application/json", body);
+            return requestInfo;
+        }
+        /// <summary>
+        /// Sample request:                PUT /event
+        /// </summary>
+        /// <returns>A <see cref="RequestInformation"/></returns>
+        /// <param name="body">The request body</param>
+        /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public RequestInformation ToPutRequestInformation(global::MyTicketMaster.Web.Clients.Events.Models.UpdateEventRequest body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default)
+        {
+#nullable restore
+#else
+        public RequestInformation ToPutRequestInformation(global::MyTicketMaster.Web.Clients.Events.Models.UpdateEventRequest body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default)
+        {
+#endif
+            _ = body ?? throw new ArgumentNullException(nameof(body));
+            var requestInfo = new RequestInformation(Method.PUT, UrlTemplate, PathParameters);
             requestInfo.Configure(requestConfiguration);
             requestInfo.Headers.TryAdd("Accept", "application/json");
             requestInfo.SetContentFromParsable(RequestAdapter, "application/json", body);

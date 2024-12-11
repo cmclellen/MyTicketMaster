@@ -9,9 +9,11 @@ namespace MyTicketMaster.Web.Clients.Events.Models
 {
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     #pragma warning disable CS1591
-    public partial class CreateEventRequest : IParsable
+    public partial class UpdateEventRequest : IParsable
     #pragma warning restore CS1591
     {
+        /// <summary>The id property</summary>
+        public Guid? Id { get; set; }
         /// <summary>The name property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -25,12 +27,12 @@ namespace MyTicketMaster.Web.Clients.Events.Models
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
-        /// <returns>A <see cref="global::MyTicketMaster.Web.Clients.Events.Models.CreateEventRequest"/></returns>
+        /// <returns>A <see cref="global::MyTicketMaster.Web.Clients.Events.Models.UpdateEventRequest"/></returns>
         /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
-        public static global::MyTicketMaster.Web.Clients.Events.Models.CreateEventRequest CreateFromDiscriminatorValue(IParseNode parseNode)
+        public static global::MyTicketMaster.Web.Clients.Events.Models.UpdateEventRequest CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             _ = parseNode ?? throw new ArgumentNullException(nameof(parseNode));
-            return new global::MyTicketMaster.Web.Clients.Events.Models.CreateEventRequest();
+            return new global::MyTicketMaster.Web.Clients.Events.Models.UpdateEventRequest();
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -40,6 +42,7 @@ namespace MyTicketMaster.Web.Clients.Events.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
+                { "id", n => { Id = n.GetGuidValue(); } },
                 { "name", n => { Name = n.GetStringValue(); } },
                 { "venueId", n => { VenueId = n.GetGuidValue(); } },
             };
@@ -51,6 +54,7 @@ namespace MyTicketMaster.Web.Clients.Events.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
+            writer.WriteGuidValue("id", Id);
             writer.WriteStringValue("name", Name);
             writer.WriteGuidValue("venueId", VenueId);
         }

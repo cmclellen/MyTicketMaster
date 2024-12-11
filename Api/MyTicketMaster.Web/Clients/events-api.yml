@@ -82,6 +82,39 @@
             }
           }
         }
+      },
+      "put": {
+        "tags": [
+          "UpdateEvent"
+        ],
+        "summary": "Updates an event.",
+        "description": "Sample request:\r\n            \r\n    PUT /event",
+        "operationId": "UpdateEvent",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateEventRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/api/v1/venues": {
@@ -152,17 +185,17 @@
         }
       }
     },
-    "/api/v1/events/{id}": {
+    "/api/v1/events/{eventId}": {
       "delete": {
         "tags": [
           "DeleteEvent"
         ],
         "summary": "Deletes an event.",
-        "description": "Sample request:\r\n            \r\n    DELETE /event/{id:guid}",
+        "description": "Sample request:\r\n            \r\n    DELETE /event/{eventId:guid}",
         "operationId": "DeleteEvent",
         "parameters": [
           {
-            "name": "id",
+            "name": "eventId",
             "in": "path",
             "required": true,
             "schema": {
@@ -186,45 +219,7 @@
             }
           }
         }
-      }
-    },
-    "/api/v1/venues/{id}": {
-      "delete": {
-        "tags": [
-          "DeleteVenue"
-        ],
-        "summary": "Deletes a venue.",
-        "description": "Sample request:\r\n            \r\n    DELETE /venue/{id:guid}",
-        "operationId": "DeleteVenue",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": ""
-          },
-          "500": {
-            "description": "An unexpected error has occurred",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "string"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/events/{eventId}": {
+      },
       "get": {
         "tags": [
           "GetEvent"
@@ -256,6 +251,42 @@
           },
           "400": {
             "description": "Event not found"
+          },
+          "500": {
+            "description": "An unexpected error has occurred",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/venues/{venueId}": {
+      "delete": {
+        "tags": [
+          "DeleteVenue"
+        ],
+        "summary": "Deletes a venue.",
+        "description": "Sample request:\r\n            \r\n    DELETE /venue/{venueId:guid}",
+        "operationId": "DeleteVenue",
+        "parameters": [
+          {
+            "name": "venueId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
           },
           "500": {
             "description": "An unexpected error has occurred",
@@ -323,6 +354,10 @@
           "name": {
             "type": "string",
             "nullable": true
+          },
+          "venueId": {
+            "type": "string",
+            "format": "uuid"
           }
         },
         "additionalProperties": false
@@ -347,6 +382,10 @@
           "name": {
             "type": "string",
             "nullable": true
+          },
+          "venueId": {
+            "type": "string",
+            "format": "uuid"
           }
         },
         "additionalProperties": false
@@ -397,6 +436,24 @@
         ],
         "type": "integer",
         "format": "int32"
+      },
+      "UpdateEventRequest": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "venueId": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "additionalProperties": false
       },
       "VenueResponse": {
         "type": "object",

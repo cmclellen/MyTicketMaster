@@ -30,12 +30,17 @@ namespace MyTicketMaster.Event.Api.Endpoints
                 .MapToApiVersion(1)
                 .WithTags(nameof(CreateEvent));
 
+            app.MapPut("/", UpdateEvent)
+                .WithName(nameof(UpdateEvent))
+                .MapToApiVersion(1)
+                .WithTags(nameof(UpdateEvent));
+
             app.MapGet("/{eventId:guid}/seats", GetEventSeats)
                 .WithName(nameof(GetEventSeats))
                 .MapToApiVersion(1)
                 .WithTags(nameof(GetEventSeats));
 
-            app.MapDelete("/{id:guid}", DeleteEvent)
+            app.MapDelete("/{eventId:guid}", DeleteEvent)
                 .WithName(nameof(DeleteEvent))
                 .MapToApiVersion(1)
                 .WithTags(nameof(DeleteEvent));
@@ -109,14 +114,14 @@ namespace MyTicketMaster.Event.Api.Endpoints
         /// <remarks>
         /// Sample request:
         ///
-        ///     DELETE /event/{id:guid}
+        ///     DELETE /event/{eventId:guid}
         ///
         /// </remarks>
         /// <response code="204"></response>
         /// <response code="500">An unexpected error has occurred</response>
-        public async Task<Results<NoContent, InternalServerError<string>>> DeleteEvent(Guid id, ISender sender)
+        public async Task<Results<NoContent, InternalServerError<string>>> DeleteEvent(Guid eventId, ISender sender)
         {
-            await sender.Send(new DeleteEventCommand(id));
+            await sender.Send(new DeleteEventCommand(eventId));
             return TypedResults.NoContent();
         }
 
@@ -133,7 +138,24 @@ namespace MyTicketMaster.Event.Api.Endpoints
         /// <response code="500">An unexpected error has occurred</response>
         public async Task<Results<Ok, InternalServerError<string>>> CreateEvent(CreateEventRequest request, ISender sender)
         {
-            await sender.Send(new CreateEventCommand(request.Name));
+            await sender.Send(new CreateEventCommand(request.Name, request.VenueId));
+            return TypedResults.Ok();
+        }
+
+        /// <summary>
+        /// Updates an event.
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     PUT /event
+        ///
+        /// </remarks>
+        [ApiConventionMethod(typeof(DefaultApiConventions),
+                     nameof(DefaultApiConventions.Put))]
+        public async Task<Results<Ok, InternalServerError<string>>> UpdateEvent(UpdateEventRequest request, ISender sender)
+        {
+            await sender.Send(new UpdateEventCommand(request.Id, request.Name, request.VenueId));
             return TypedResults.Ok();
         }
     }

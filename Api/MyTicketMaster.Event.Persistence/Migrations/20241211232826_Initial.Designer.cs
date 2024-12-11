@@ -12,8 +12,8 @@ using MyTicketMaster.Event.Persistence;
 namespace MyTicketMaster.Event.Persistence.Migrations
 {
     [DbContext(typeof(EventDbContext))]
-    [Migration("20241206222858_InitialNew")]
-    partial class InitialNew
+    [Migration("20241211232826_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -46,10 +46,15 @@ namespace MyTicketMaster.Event.Persistence.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
+                    b.Property<Guid>("VenueId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
                     b.HasIndex("Name")
                         .IsUnique();
+
+                    b.HasIndex("VenueId");
 
                     b.ToTable("Events");
 
@@ -59,14 +64,16 @@ namespace MyTicketMaster.Event.Persistence.Migrations
                             Id = new Guid("7888e967-af2a-4b81-b971-034c003835fa"),
                             CreatedAtUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ModifiedAtUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "MJ the Musical"
+                            Name = "MJ the Musical",
+                            VenueId = new Guid("23d2da3b-c620-498e-b5cf-1a20a383cff7")
                         },
                         new
                         {
                             Id = new Guid("64379420-5da1-425e-aeb2-da3d92217528"),
                             CreatedAtUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ModifiedAtUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Beauty and the Beast"
+                            Name = "Beauty and the Beast",
+                            VenueId = new Guid("c04e75ff-bbe5-4221-9651-d25ea06f1375")
                         });
                 });
 
@@ -127,6 +134,17 @@ namespace MyTicketMaster.Event.Persistence.Migrations
                             ModifiedAtUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Mt Duneed Estate"
                         });
+                });
+
+            modelBuilder.Entity("MyTicketMaster.Event.Domain.Entities.Event", b =>
+                {
+                    b.HasOne("MyTicketMaster.Event.Domain.Entities.Venue", "Venue")
+                        .WithMany()
+                        .HasForeignKey("VenueId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Venue");
                 });
 #pragma warning restore 612, 618
         }
