@@ -15,7 +15,8 @@
         <input type="text" class="form-control" id="venueName" placeholder="Optus Stadium" @bind="venue!.Name">
         @* <ValidationMessage For="() => venue!.Name" class="text-danger" /> *@
     </div>
-    <div class="justify-content-md-end d-grid d-block">
+    <div class="d-md-flex justify-content-md-end gap-2 d-grid d-md-block">
+        <a role="button" class="btn btn-secondary" href="/vanues">Cancel</a>
         <button type="submit" class="btn btn-primary" @onclick=SaveVenue>Save</button>
     </div>
 </div>

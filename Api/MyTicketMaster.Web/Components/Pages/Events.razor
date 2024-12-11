@@ -19,9 +19,6 @@ else
     <table class="table">
         <thead>
             <tr>
-                @* <th>Date</th>
-                <th aria-label="Temperature in Celsius">Temp. (C)</th>
-                <th aria-label="Temperature in Farenheit">Temp. (F)</th> *@
                 <th>Name</th>
                 <th>Action</th>
             </tr>
@@ -30,7 +27,7 @@ else
             @foreach (var eventItem in events)
             {
                 <tr>
-                    <td>@eventItem.Name</td>
+                    <td><a href="/events/@eventItem.Id">@eventItem.Name</a></td>
                     <td>
                         <MyTicketMaster.Web.Components.Shared.DeleteRowItem Id="@eventItem.Id!.Value" OnDeleteAsync="DeleteEventAsync" />
                     </td>

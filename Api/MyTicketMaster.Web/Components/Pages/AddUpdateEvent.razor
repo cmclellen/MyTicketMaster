@@ -7,7 +7,7 @@
 
 <PageTitle>Add Event</PageTitle>
 
-<h1>Add Event</h1>
+<h1>@(Id.HasValue ? "Edit" : "Add") Event</h1>
 
 <div class="row g-3">
     <div>
@@ -15,7 +15,8 @@
         <input type="text" class="form-control" id="eventName" placeholder="Counting Crows 2024 Tour" @bind="eventItem!.Name">
         @* <ValidationMessage For="() => venue!.Name" class="text-danger" /> *@
     </div>
-    <div class="justify-content-md-end d-grid d-block">
+    <div class="d-md-flex justify-content-md-end gap-2 d-grid d-md-block">
+        <a role="button" class="btn btn-secondary" href="/events">Cancel</a>
         <button type="submit" class="btn btn-primary" @onclick=SaveEvent>Save</button>
     </div>
 </div>
