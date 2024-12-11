@@ -224,6 +224,52 @@
         }
       }
     },
+    "/api/v1/events/{eventId}": {
+      "get": {
+        "tags": [
+          "GetEvent"
+        ],
+        "summary": "Gets an event.",
+        "description": "Sample request:\r\n            \r\n    GET /events/{eventId}",
+        "operationId": "GetEvent",
+        "parameters": [
+          {
+            "name": "eventId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the events",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Event not found"
+          },
+          "500": {
+            "description": "An unexpected error has occurred",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/events/{eventId}/seats": {
       "get": {
         "tags": [

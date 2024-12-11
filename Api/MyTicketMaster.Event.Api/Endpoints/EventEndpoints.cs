@@ -18,13 +18,12 @@ namespace MyTicketMaster.Event.Api.Endpoints
             app.MapGet("/", GetEvents)
                 .WithName(nameof(GetEvents))
                 .MapToApiVersion(1)
-                //.Produces(StatusCodes.Status500InternalServerError)
                 .WithTags(nameof(GetEvents));
-            //.WithOpenApi(op =>
-            //{
-            //    op.RequestBody.Required = false;
-            //    return op;
-            //});
+
+            app.MapGet("/{eventId:guid}", GetEvent)
+                .WithName(nameof(GetEvent))
+                .MapToApiVersion(1)
+                .WithTags(nameof(GetEvent));
 
             app.MapPost("/", CreateEvent)
                 .WithName(nameof(CreateEvent))
@@ -39,8 +38,29 @@ namespace MyTicketMaster.Event.Api.Endpoints
             app.MapDelete("/{id:guid}", DeleteEvent)
                 .WithName(nameof(DeleteEvent))
                 .MapToApiVersion(1)
-                //.Produces(StatusCodes.Status500InternalServerError)
                 .WithTags(nameof(DeleteEvent));
+        }
+
+        /// <summary>
+        /// Gets an event.
+        /// </summary>
+        /// <returns>The event</returns>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     GET /events/{eventId}
+        ///
+        /// </remarks>
+        /// <response code="200">Returns the events</response>
+        /// <response code="400">Event not found</response>
+        /// <response code="500">An unexpected error has occurred</response>
+        [ApiConventionMethod(typeof(DefaultApiConventions),
+                     nameof(DefaultApiConventions.Get))]
+        [Produces("application/json")]
+        public async Task<Results<Ok<EventResponse>, InternalServerError<string>>> GetEvent(Guid eventId, ISender sender)
+        {
+            var response = await sender.Send(new GetEventQuery(eventId));
+            return TypedResults.Ok(response);
         }
 
         /// <summary>

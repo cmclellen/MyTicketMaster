@@ -19,9 +19,14 @@ namespace MyTicketMaster.Event.Persistence.Repositories
             DbSet.Remove(eventItem!);
         }
 
-        public IList<Domain.Entities.Event> GetAll()
+        public async Task<IList<Domain.Entities.Event>> GetAllAsync(CancellationToken cancellationToken)
         {
-            return DbSet.ToList();
+            return await DbSet.ToListAsync();
+        }
+
+        public async Task<Domain.Entities.Event?> GetByIdAsync(Guid eventId, CancellationToken cancellationToken)
+        {
+            return await DbSet.FindAsync(eventId, cancellationToken);
         }
     }
 }

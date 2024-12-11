@@ -3,17 +3,35 @@
 @inject NavigationManager Navigation
 @page "/events/{id:guid}"
 @page "/events/add"
-@rendermode InteractiveServer
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+@using System.Text.Json
 
 <PageTitle>Add Event</PageTitle>
 
 <h1>@(Id.HasValue ? "Edit" : "Add") Event</h1>
 
 <div class="row g-3">
-    <div>
+    <div class="col-6">
         <label for="eventName" class="form-label">Name</label>
-        <input type="text" class="form-control" id="eventName" placeholder="Counting Crows 2024 Tour" @bind="eventItem!.Name">
+        @if(eventItem is not null) {
+            <input type="text" class="form-control" id="eventName" placeholder="Counting Crows 2024 Tour" @bind="eventItem!.Name">
+        } else {
+            <span class="placeholder placeholder-lg w-100"></span>
+        }
+        
         @* <ValidationMessage For="() => venue!.Name" class="text-danger" /> *@
+    </div>
+    <div class="col-6 placeholder-wave">
+        <label for="venue" class="form-label">Venue</label>
+        @if (venues is not null) {
+            <select class="form-select" aria-label="Default select example">
+                @foreach (var venueItem in venues) {
+                    <option value="@venueItem.Id">@venueItem.Name</option>
+                }
+            </select>
+        } else {
+            <div class="placeholder placeholder-lg w-100"></div>
+        }
     </div>
     <div class="d-md-flex justify-content-md-end gap-2 d-grid d-md-block">
         <a role="button" class="btn btn-secondary" href="/events">Cancel</a>
@@ -26,11 +44,27 @@
     public Guid? Id { get; set; }
 
     public Models.Event? eventItem;
+    IList<Models.Venue>? venues;
 
     protected override async Task OnInitializedAsync()
     {
-        eventItem = new Models.Event();
-        await Task.CompletedTask;
+        if(Id is not null) {
+            var eventResponse = await eventsClient.Api.V1.Events[Id.Value].GetAsync();
+            if (eventResponse is not null) {
+                eventItem = new Models.Event()
+                    {
+                        Id = eventResponse.Id,
+                        Name = eventResponse.Name,
+                    };
+            }            
+        } else {
+            eventItem = new Models.Event();
+        }        
+
+        var venuesResponse = await eventsClient.Api.V1.Venues.GetAsync();
+        venues = venuesResponse!.Items!.Select(item => new Models.Venue { Id = item.Id!.Value, Name = item.Name }).ToList();
+
+        StateHasChanged();
     }
 
     private async Task SaveEvent()

@@ -5,6 +5,7 @@ namespace MyTicketMaster.Event.Domain.Repositories
     {
         Task DeleteAsync(Guid id, CancellationToken cancellationToken);
         Entities.Event Create(Entities.Event eventItem);
-        IList<Entities.Event> GetAll();
+        Task<IList<Entities.Event>> GetAllAsync(CancellationToken cancellationToken);
+        Task<Entities.Event?> GetByIdAsync(Guid eventId, CancellationToken cancellationToken);
     }
 }
