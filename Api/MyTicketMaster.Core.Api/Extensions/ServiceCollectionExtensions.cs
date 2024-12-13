@@ -40,6 +40,29 @@ namespace MyTicketMaster.Core.Api.Extensions
                 var xmlFilename = $"{Assembly.GetEntryAssembly()!.GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFilename);
                 c.IncludeXmlComments(xmlPath);
+
+                var authServerUrl = "http://localhost:8080/";
+                var realm = "MyTicketMaster";
+                var openIdConnectUrl = $"{authServerUrl}realms/{realm}/.well-known/openid-configuration";
+                var securityScheme = new OpenApiSecurityScheme
+                {
+                    Name = "Auth",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.OpenIdConnect,
+                    OpenIdConnectUrl = new Uri(openIdConnectUrl),
+                    Scheme = "bearer",
+                    BearerFormat = "JWT",
+                    Reference = new OpenApiReference
+                    {
+                        Id = "Bearer",
+                        Type = ReferenceType.SecurityScheme
+                    }
+                };
+                c.AddSecurityDefinition(securityScheme.Reference.Id, securityScheme);
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                    {
+                        {securityScheme, Array.Empty<string>()}
+                    });
             });
             return services;
         }
