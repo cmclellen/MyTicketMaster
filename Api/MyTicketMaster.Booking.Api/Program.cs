@@ -12,7 +12,8 @@ services
     .AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<GetBookingsQuery>())
     .AddEndpointsApiExplorer()
     .AddSwaggerEx("Booking")
-    .AddApiVersioningEx();
+    .AddApiVersioningEx()
+    .AddAuthNZ();
 
 //builder.AddOpenTelemetry("BookingService");
 
@@ -24,10 +25,10 @@ if (app.Environment.IsDevelopment())
     app.UseDeveloperExceptionPage();
 }
 
-app.MapDefaultEndpoints();
-
-app.UseGlobalExceptionHandler();
-
-app.UseApiVersioningEx();
+app
+    .MapDefaultEndpoints()
+    .UseGlobalExceptionHandler()
+    .UseApiVersioningEx()
+    .UseAuthNZ();
 
 app.Run();

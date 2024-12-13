@@ -15,6 +15,7 @@ services
     .AddEndpointsApiExplorer()
     .AddSwaggerEx("Event")
     .AddApiVersioningEx()
+    .AddAuthNZ()
     .AddDbContext<EventDbContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("database")));
 
@@ -35,11 +36,11 @@ if (app.Environment.IsDevelopment())
     app.UseDeveloperExceptionPage();
 }
 
-app.MapDefaultEndpoints();
-
-app.UseGlobalExceptionHandler();
-
-app.UseApiVersioningEx();
+app
+    .MapDefaultEndpoints()
+    .UseGlobalExceptionHandler()
+    .UseApiVersioningEx()
+    .UseAuthNZ();
 
 using (var scope = app.Services.CreateScope())
 {

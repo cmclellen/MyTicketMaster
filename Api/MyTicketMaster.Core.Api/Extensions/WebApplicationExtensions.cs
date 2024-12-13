@@ -21,6 +21,14 @@ namespace MyTicketMaster.Core.Api.Extensions
             return app;
         }
 
+        public static WebApplication UseAuthNZ(this WebApplication app)
+        {
+            //app.UseCors();
+            app.UseAuthentication();
+            app.UseAuthorization();
+            return app;
+        }
+
         public static WebApplication UseApiVersioningEx(this WebApplication app)
         {
             var apiVersionSet = app.NewApiVersionSet()
@@ -28,6 +36,7 @@ namespace MyTicketMaster.Core.Api.Extensions
                 .Build();
             var apiMapGroup = app.MapGroup("api/v{version:apiVersion}")
                 .WithApiVersionSet(apiVersionSet);
+            apiMapGroup.RequireAuthorization();
             apiMapGroup.MapCarter();
             return app;
         }

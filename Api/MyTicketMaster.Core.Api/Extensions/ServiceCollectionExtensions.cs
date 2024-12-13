@@ -1,6 +1,5 @@
 ﻿using Asp.Versioning;
 using Carter;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
@@ -42,6 +41,19 @@ namespace MyTicketMaster.Core.Api.Extensions
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFilename);
                 c.IncludeXmlComments(xmlPath);
             });
+            return services;
+        }
+
+        public static IServiceCollection AddAuthNZ(this IServiceCollection services)
+        {
+            services
+                .AddAuthorization()
+                .AddAuthentication()
+                .AddKeycloakJwtBearer("keycloak", realm: "MyTicketMaster", options =>
+                {
+                    options.RequireHttpsMetadata = false;
+                    options.Audience = "account";
+                });
             return services;
         }
 
