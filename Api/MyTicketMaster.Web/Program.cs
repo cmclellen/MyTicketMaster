@@ -18,8 +18,9 @@ var httpClientBuilder = builder.Services.AddHttpClient<EventsClientFactory>(asyn
     var token = await httpContextAccessor.HttpContext!.GetTokenAsync("access_token");
     
     httpClient.BaseAddress = new Uri("https://localhost:7243");
-    httpClient.DefaultRequestHeaders.Authorization =
-        new AuthenticationHeaderValue("Bearer", token);
+    var headers = httpClient.DefaultRequestHeaders;
+    headers.Clear();
+    headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
 });
 builder.Services.AddTransient(sp => sp.GetRequiredService<EventsClientFactory>().GetClient());
 
@@ -68,8 +69,6 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseAntiforgery();
-
 app.MapStaticAssets();
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
@@ -78,5 +77,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapBlazorHub().RequireAuthorization();
+
+app.UseAntiforgery();
 
 app.Run();
