@@ -1,8 +1,11 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using Microsoft.AspNetCore.Components.Authorization;
 using MyTicketMaster.Web.Clients;
 using MyTicketMaster.Web.Components;
+using MyTicketMaster.Web.Utils;
 using System.Net.Http.Headers;
+using Microsoft.AspNetCore.Authentication;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,11 +14,14 @@ builder.AddServiceDefaults();
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
-var httpClientBuilder = builder.Services.AddHttpClient<EventsClientFactory>((sp, httpClient) =>
+var httpClientBuilder = builder.Services.AddHttpClient<EventsClientFactory>(async (sp, httpClient) =>
 {
+    var httpContextAccessor = sp.GetRequiredService<IHttpContextAccessor>();
+    var token = await httpContextAccessor.HttpContext!.GetTokenAsync("access_token");
+    
     httpClient.BaseAddress = new Uri("https://localhost:7243");
-    //httpClient.DefaultRequestHeaders.Authorization =
-    //    new AuthenticationHeaderValue("Bearer", "Your Oauth token");
+    httpClient.DefaultRequestHeaders.Authorization =
+        new AuthenticationHeaderValue("Bearer", token);
 });
 builder.Services.AddTransient(sp => sp.GetRequiredService<EventsClientFactory>().GetClient());
 
@@ -47,6 +53,11 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddAuthorizationCore();
 builder.Services.AddCascadingAuthenticationState();
+
+builder.Services.AddScoped<TokenAuthenticationStateProvider>();
+builder.Services.AddScoped<AuthenticationStateProvider>(provider => provider.GetRequiredService<TokenAuthenticationStateProvider>());
+
+builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 
