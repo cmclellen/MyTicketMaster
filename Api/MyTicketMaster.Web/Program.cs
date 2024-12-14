@@ -1,11 +1,9 @@
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
-using Microsoft.AspNetCore.Components.Authorization;
 using MyTicketMaster.Web.Clients;
 using MyTicketMaster.Web.Components;
-using MyTicketMaster.Web.Utils;
 using System.Net.Http.Headers;
-using Microsoft.AspNetCore.Authentication;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -53,9 +51,6 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddAuthorizationCore();
 builder.Services.AddCascadingAuthenticationState();
-
-builder.Services.AddScoped<TokenAuthenticationStateProvider>();
-builder.Services.AddScoped<AuthenticationStateProvider>(provider => provider.GetRequiredService<TokenAuthenticationStateProvider>());
 
 builder.Services.AddHttpContextAccessor();
 

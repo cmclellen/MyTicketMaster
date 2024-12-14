@@ -1,11 +1,8 @@
 ﻿@using Clients.Events;
 @using Clients.Events.Models;
-@using MyTicketMaster.Web.Utils;
-@using Microsoft.AspNetCore.Authentication;
 @inject EventsClient eventsClient;
 @inject ILogger<Venue> Logger
 @inject NavigationManager Navigation
-@inject IHttpContextAccessor httpContextAccessor
 @page "/venues"
 @attribute [StreamRendering]
 @rendermode InteractiveServer
