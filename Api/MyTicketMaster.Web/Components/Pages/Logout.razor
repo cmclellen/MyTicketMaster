@@ -1,33 +1,19 @@
 ﻿@page "/authentication/logout"
-
 @using Microsoft.AspNetCore.Authentication
-
-@inject NavigationManager NavManager
-
-<PageTitle>Signing out...</PageTitle>
-
-@if (LogoutModel != null)
-{
-    <EditForm method="post" OnSubmit="LogoutClicked" Model="LogoutModel" FormName="LogoutModel" name="LogoutModel">
-        
-    </EditForm>
-
-    <script>
-        window.onload = function () {
-            document.forms['LogoutModel'].submit();
-        }
-    </script>
-}
+@inject NavigationManager Navigation
+@rendermode InteractiveServer
 
 @code {
     [CascadingParameter]
     public HttpContext? HttpContext { get; set; }
 
-    public string LogoutModel { get; set; } = string.Empty; // This is just a dummy model
-
-    async Task LogoutClicked()
+    protected override async Task OnInitializedAsync()
     {
         await HttpContext!.SignOutAsync();
-        // NavManager.NavigateTo("/authentication/login");
+        HttpContext!.Response.Redirect("/");
+
+        // Navigation.NavigateTo("/", true);
+
+        await base.OnInitializedAsync();
     }
 }
